@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout title="Impressum · Kopfsache" description="Impressum des Friseursalons Kopfsache in Walhorn.">
+  <Header />
+  <main class="wrap prose">
+    <h1>Impressum</h1>
+
+    <p>
+      <strong>[Vollständiger Name der Inhaberin einsetzen]</strong><br />
+      Salon Kopfsache<br />
+      Lindenweg 8<br />
+      4711 Walhorn, Belgien
+    </p>
+
+    <p>
+      Telefon: <a href="tel:+3287766735">+32 87 76 67 35</a><br />
+      E-Mail: <a href="mailto:kopfsache.info@gmail.com">kopfsache.info@gmail.com</a>
+    </p>
+
+    <p>Unternehmernummer (BCE/KBO): [einsetzen, falls vorhanden]</p>
+
+    <p class="note">
+      Hinweis: Dieser Text ist ein Platzhalter und muss vor Veröffentlichung
+      durch die Inhaberin geprüft und mit den korrekten rechtlichen Angaben
+      ergänzt werden (vollständiger Name, ggf. Unternehmernummer).
+    </p>
+  </main>
+  <div class="wrap"><Footer /></div>
+</BaseLayout>
+
+<style>
+  .prose {
+    padding: 40px 24px 20px;
+    max-width: 720px;
+  }
+  .prose h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(30px, 4vw, 40px);
+    color: var(--ink);
+  }
+  .prose p {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .note {
+    margin-top: 24px;
+    padding: 16px 18px;
+    background: var(--surface-muted);
+    border-radius: 12px;
+    color: var(--ink-muted);
+    font-size: 13px;
+  }
+</style>

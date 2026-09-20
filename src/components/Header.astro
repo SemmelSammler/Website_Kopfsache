@@ -1,0 +1,178 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/images/kopfsache-logo.png";
+---
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="#top" aria-label="Kopfsache – Start">
+      <Image src={logo} alt="" width={46} height={46} class="brand-logo" />
+      <span class="brand-text">
+        <span class="brand-name">KOPFSACHE</span>
+        <span class="brand-sub">Damen · Herren · Kinder</span>
+      </span>
+    </a>
+
+    <button
+      class="nav-toggle"
+      id="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="nav-pills"
+      aria-label="Menü öffnen"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+
+    <nav class="nav-pills" id="nav-pills">
+      <a class="pill" href="#leistungen">Leistungen</a>
+      <a class="pill" href="#ueber">Über mich</a>
+      <a class="pill" href="#kontakt">Kontakt</a>
+      <a class="pill pill-cta" href="#kontakt">Termin</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const nav = document.getElementById("nav-pills");
+
+  toggle?.addEventListener("click", () => {
+    const open = nav?.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  nav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("open");
+      toggle?.setAttribute("aria-expanded", "false");
+    });
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(255, 253, 248, 0.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-row {
+    padding: 14px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand-logo {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 46px;
+    height: 46px;
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.1;
+  }
+
+  .brand-name {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    letter-spacing: 0.16em;
+    color: var(--brand-dark);
+  }
+
+  .brand-sub {
+    font-family: var(--font-sans);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 9px 11px;
+    cursor: pointer;
+    color: var(--ink);
+  }
+
+  .nav-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+  }
+
+  .pill {
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: var(--surface-muted);
+    color: var(--ink-soft);
+    transition: background 180ms ease;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .pill:hover {
+    background: var(--rose-hover);
+    color: var(--ink-soft);
+  }
+
+  .pill-cta {
+    background: var(--sage);
+    color: #fffdf8;
+  }
+  .pill-cta:hover {
+    background: var(--sage-hover);
+    color: #fffdf8;
+  }
+
+  @media (max-width: 560px) {
+    .nav-toggle {
+      display: inline-flex;
+      order: 1;
+    }
+    .brand {
+      order: 0;
+    }
+    .nav-pills {
+      order: 3;
+      display: none;
+      flex-basis: 100%;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .nav-pills.open {
+      display: flex;
+    }
+    .pill {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

@@ -1,0 +1,108 @@
+---
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&family=Parisienne&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #f6f3ea;
+    --surface: #fffdf8;
+    --surface-muted: #ede7da;
+    --ink: #3f382d;
+    --ink-soft: #5e5648;
+    --ink-muted: #a2947f;
+    --sage: #7e8c72;
+    --sage-hover: #6e7b63;
+    --sage-deep: #4f5a45;
+    --sage-tint: #dce1d4;
+    --rose: #efe0d8;
+    --rose-hover: #e7d3c8;
+    --rose-ink: #a06f4e;
+    --sand: #f0e9d8;
+    --gold: #c9922e;
+    --gold-deep: #9a7526;
+    --line: #e7e1d2;
+    --brand-dark: #4a4034;
+
+    --font-serif: "Cormorant Garamond", Georgia, "Iowan Old Style", serif;
+    --font-sans: "Jost", "Segoe UI", system-ui, sans-serif;
+    --font-script: "Parisienne", cursive;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  a {
+    color: var(--sage);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--gold);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+</style>
