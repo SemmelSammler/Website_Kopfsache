@@ -169,6 +169,38 @@ const jsonLd = {
       </section>
 
       <section id="kontakt" class="section kontakt-grid">
+        <div class="kontakt-card booking-card">
+          <h3>Termin anfragen</h3>
+          <form class="booking-form" id="booking-form">
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input type="text" id="f-name" name="name" required />
+            </div>
+            <div class="field">
+              <label for="f-kontakt">Telefon oder E-Mail</label>
+              <input type="text" id="f-kontakt" name="kontakt" required />
+            </div>
+            <div class="field">
+              <label for="f-service">Gewünschte Leistung</label>
+              <select id="f-service" name="service" required>
+                <option value="Damen">Damen</option>
+                <option value="Herren">Herren</option>
+                <option value="Kinder">Kinder</option>
+                <option value="Anlass">Anlass</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-termin">Wunschtermin</label>
+              <input type="datetime-local" id="f-termin" name="wunschtermin" />
+            </div>
+            <div class="field">
+              <label for="f-nachricht">Nachricht (optional)</label>
+              <textarea id="f-nachricht" name="nachricht" placeholder="z. B. Wunschfarbe, Referenzbild folgt, o. Ä."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Anfrage senden</button>
+          </form>
+          <div id="booking-confirm" class="booking-confirm" hidden></div>
+        </div>
         <div class="kontakt-card">
           <h3>Salon</h3>
           <p>
@@ -528,4 +560,125 @@ const jsonLd = {
     font-size: 13px;
     color: var(--ink-muted);
   }
+
+  .booking-card {
+    grid-column: 1 / -1;
+  }
+
+  .booking-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    align-items: start;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .field label {
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 11px 14px;
+    min-height: 44px;
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 84px;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: 2px solid var(--sage);
+    outline-offset: 1px;
+  }
+
+  .booking-form button[type="submit"] {
+    justify-self: start;
+    align-self: end;
+    border: none;
+  }
+
+  .booking-confirm {
+    margin-top: 20px;
+    padding: 18px 20px;
+    background: var(--surface-muted);
+    border-radius: 16px;
+  }
+
+  .booking-confirm p {
+    margin: 0 0 10px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+
+  .booking-confirm p:last-child {
+    margin-bottom: 0;
+  }
+
+  .booking-confirm a {
+    color: var(--sage);
+    text-decoration: underline;
+  }
 </style>
+
+<script>
+  const services: Record<string, string> = {
+    Damen: "Damen",
+    Herren: "Herren",
+    Kinder: "Kinder",
+    Anlass: "Anlass",
+  };
+
+  const form = document.getElementById("booking-form") as HTMLFormElement | null;
+  const confirmEl = document.getElementById("booking-confirm");
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const data = new FormData(form);
+    const name = String(data.get("name") || "").trim();
+    const kontakt = String(data.get("kontakt") || "").trim();
+    const service = String(data.get("service") || "");
+    const wunschtermin = String(data.get("wunschtermin") || "");
+    const nachricht = String(data.get("nachricht") || "").trim();
+
+    const lines = [
+      `Name: ${name}`,
+      `Kontakt: ${kontakt}`,
+      `Leistung: ${services[service] || service}`,
+      `Wunschtermin: ${wunschtermin || "flexibel"}`,
+      `Nachricht: ${nachricht || "–"}`,
+    ];
+    const body = lines.join("\n");
+    const subject = `Terminanfrage: ${services[service] || service}`;
+    const mailto = `mailto:kopfsache.info@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    if (confirmEl) {
+      confirmEl.innerHTML = `
+        <p>Danke, ${name || "und herzlich willkommen"}! Deine Anfrage ist vorbereitet — dein E-Mail-Programm sollte sich jetzt öffnen.</p>
+        <p>Hat sich nichts getan? <a href="${mailto}">Hier klicken, um die E-Mail manuell zu öffnen</a>.</p>
+      `;
+      confirmEl.hidden = false;
+    }
+
+    window.location.href = mailto;
+    form.reset();
+  });
+</script>
