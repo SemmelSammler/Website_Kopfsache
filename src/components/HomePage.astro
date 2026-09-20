@@ -1,0 +1,718 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import salonAussen from "../assets/images/salon-aussen.jpg";
+import portraitSalon from "../assets/images/portrait-salon.jpg";
+import { useTranslations, altPath, type Lang } from "../i18n/translations";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const services = [
+  {
+    id: "damen",
+    title: t("service.damen.title"),
+    text: t("service.damen.text"),
+    price: t("service.damen.price"),
+    bg: "var(--sage-tint)",
+    titleColor: "var(--sage-deep)",
+    textColor: "#4c5344",
+  },
+  {
+    id: "herren",
+    title: t("service.herren.title"),
+    text: t("service.herren.text"),
+    price: t("service.herren.price"),
+    bg: "var(--rose)",
+    titleColor: "var(--rose-ink)",
+    textColor: "#6b5b50",
+  },
+  {
+    id: "kinder",
+    title: t("service.kinder.title"),
+    text: t("service.kinder.text"),
+    price: t("service.kinder.price"),
+    bg: "var(--sand)",
+    titleColor: "var(--gold-deep)",
+    textColor: "#6b6045",
+  },
+  {
+    id: "anlass",
+    title: t("service.anlass.title"),
+    text: t("service.anlass.text"),
+    price: t("service.anlass.price"),
+    bg: "var(--surface)",
+    titleColor: "var(--sage)",
+    textColor: "var(--ink-soft)",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HairSalon",
+  name: "Kopfsache",
+  image: "https://kopfsache-walhorn.be/salon-aussen.jpg",
+  telephone: "+32 87 76 67 35",
+  email: "kopfsache.info@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Lindenweg 8",
+    postalCode: "4711",
+    addressLocality: "Walhorn",
+    addressCountry: "BE",
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "18:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "08:00",
+      closes: "14:00",
+    },
+  ],
+  sameAs: ["https://www.instagram.com/dasistalles.kopfsache/"],
+};
+
+const alternates = [
+  { hreflang: "de", href: "https://kopfsache-walhorn.be/" },
+  { hreflang: "fr", href: "https://kopfsache-walhorn.be/fr/" },
+  { hreflang: "x-default", href: "https://kopfsache-walhorn.be/" },
+];
+
+const bookingVars = {
+  subjectPrefix: t("booking.mailSubject"),
+  labelName: t("booking.mailName"),
+  labelKontakt: t("booking.mailKontakt"),
+  labelLeistung: t("booking.mailLeistung"),
+  labelTermin: t("booking.mailTermin"),
+  flexibel: t("booking.mailFlexibel"),
+  labelNachricht: t("booking.mailNachricht"),
+  keine: t("booking.mailKeine"),
+  thanksTemplate: t("booking.thanks"),
+  thanksFallbackName: t("booking.thanksFallbackName"),
+  fallbackPrefix: t("booking.fallbackPrefix"),
+  fallbackLink: t("booking.fallbackLink"),
+  fallbackSuffix: t("booking.fallbackSuffix"),
+  serviceLabels: {
+    Damen: t("service.damen.title"),
+    Herren: t("service.herren.title"),
+    Kinder: t("service.kinder.title"),
+    Anlass: t("service.anlass.title"),
+  },
+};
+---
+
+<BaseLayout title={t("meta.title")} description={t("meta.description")} lang={lang} alternates={alternates}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <div id="top">
+    <Header lang={lang} />
+
+    <main class="wrap">
+      <section class="hero">
+        <Image
+          src={salonAussen}
+          alt="Salon Kopfsache in Walhorn, Außenansicht"
+          class="hero-img"
+          widths={[600, 900, 1400]}
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="hero-scrim" aria-hidden="true"></div>
+        <div class="hero-card">
+          <p class="hero-kicker">{t("hero.kicker")}</p>
+          <h1 class="hero-title">{t("hero.titleLine1")}<br />{t("hero.titleLine2")}</h1>
+          <p class="hero-text">{t("hero.text")}</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#kontakt">{t("hero.ctaPrimary")}</a>
+            <a class="btn btn-secondary" href="tel:+3287766735">+32 87 76 67 35</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="badges" aria-label="Auf einen Blick">
+        <span class="badge">{t("badges.termin")}</span>
+        <span class="badge">{t("badges.hausbesuch")}</span>
+        <span class="badge">{t("badges.sprachen")}</span>
+        <span class="badge">{t("badges.adresse")}</span>
+      </section>
+
+      <section id="leistungen" class="section">
+        <div class="section-head">
+          <h2>{t("leistungen.title")}</h2>
+          <p class="meta">{t("leistungen.meta")}</p>
+        </div>
+        <div class="services-grid">
+          {
+            services.map((s) => (
+              <div class="service-card" style={`background:${s.bg}`}>
+                <h3 style={`color:${s.titleColor}`}>{s.title}</h3>
+                <p style={`color:${s.textColor}`}>{s.text}</p>
+                <p class="service-price" style={`color:${s.titleColor}`}>{s.price}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="banner">
+        <p class="banner-kicker">{t("banner.kicker")}</p>
+        <p class="banner-text">{t("banner.text")}</p>
+        <a class="btn btn-banner" href="#kontakt">{t("banner.cta")}</a>
+      </section>
+
+      <section id="ueber" class="section ueber-grid">
+        <Image
+          src={portraitSalon}
+          alt="Friseurin im Salon Kopfsache"
+          class="ueber-img"
+          widths={[400, 600, 800]}
+          sizes="(max-width: 700px) 100vw, 50vw"
+          loading="lazy"
+        />
+        <div class="ueber-card">
+          <p class="ueber-kicker">{t("ueber.kicker")}</p>
+          <p>{t("ueber.text")}</p>
+          <p class="ueber-quote">{t("ueber.quote")}</p>
+        </div>
+      </section>
+
+      <section id="kontakt" class="section kontakt-grid">
+        <div class="kontakt-card booking-card">
+          <h3>{t("booking.title")}</h3>
+          <form class="booking-form" id="booking-form">
+            <div class="field">
+              <label for="f-name">{t("booking.name")}</label>
+              <input type="text" id="f-name" name="name" required />
+            </div>
+            <div class="field">
+              <label for="f-kontakt">{t("booking.kontakt")}</label>
+              <input type="text" id="f-kontakt" name="kontakt" required />
+            </div>
+            <div class="field">
+              <label for="f-service">{t("booking.service")}</label>
+              <select id="f-service" name="service" required>
+                <option value="Damen">{t("service.damen.title")}</option>
+                <option value="Herren">{t("service.herren.title")}</option>
+                <option value="Kinder">{t("service.kinder.title")}</option>
+                <option value="Anlass">{t("service.anlass.title")}</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-termin">{t("booking.termin")}</label>
+              <input type="datetime-local" id="f-termin" name="wunschtermin" />
+            </div>
+            <div class="field">
+              <label for="f-nachricht">{t("booking.nachricht")}</label>
+              <textarea id="f-nachricht" name="nachricht" placeholder={t("booking.nachrichtPlaceholder")}></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">{t("booking.submit")}</button>
+          </form>
+          <div id="booking-confirm" class="booking-confirm" hidden></div>
+        </div>
+        <div class="kontakt-card">
+          <h3>{t("kontakt.salonTitle")}</h3>
+          <p>
+            Lindenweg 8<br />
+            4711 Walhorn<br />
+            Belgien
+          </p>
+        </div>
+        <div class="kontakt-card">
+          <h3>{t("kontakt.kontaktTitle")}</h3>
+          <p>
+            <a href="tel:+3287766735">+32 87 76 67 35</a><br />
+            <a href="mailto:kopfsache.info@gmail.com">kopfsache.info@gmail.com</a><br />
+            <a href="https://www.instagram.com/dasistalles.kopfsache/" target="_blank" rel="noopener">@dasistalles.kopfsache</a>
+          </p>
+        </div>
+        <div class="kontakt-card">
+          <h3>{t("kontakt.oeffnungszeitenTitle")}</h3>
+          <p>
+            {t("kontakt.zeile1")}<br />
+            {t("kontakt.zeile2")}<br />
+            {t("kontakt.zeile3")}
+          </p>
+          <p class="kontakt-note">{t("kontakt.note")}</p>
+        </div>
+      </section>
+
+      <Footer lang={lang} />
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  #top {
+    padding-top: 20px;
+  }
+
+  #leistungen,
+  #ueber,
+  #kontakt {
+    scroll-margin-top: 88px;
+  }
+
+  .section {
+    padding: 22px 0;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    min-height: 540px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: clamp(20px, 4vw, 52px);
+  }
+
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 30% 12%;
+  }
+
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      260deg,
+      rgba(255, 253, 248, 0.55) 0%,
+      rgba(255, 253, 248, 0.2) 50%,
+      rgba(62, 56, 45, 0.25) 100%
+    );
+  }
+
+  .hero-card {
+    position: relative;
+    max-width: 470px;
+    background: rgba(255, 253, 248, 0.95);
+    border-radius: 24px;
+    padding: clamp(26px, 3vw, 38px) clamp(24px, 3vw, 34px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .hero-kicker {
+    font-family: var(--font-script);
+    font-size: clamp(30px, 4vw, 42px);
+    color: var(--gold);
+    line-height: 1;
+    margin: 0;
+  }
+
+  .hero-title {
+    font-family: var(--font-serif);
+    font-size: clamp(36px, 5.2vw, 54px);
+    line-height: 1.04;
+    color: #3f382d;
+    margin: 0;
+  }
+
+  .hero-text {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #55503f;
+    text-wrap: pretty;
+    margin: 0;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-top: 8px;
+  }
+
+  .btn {
+    border-radius: 999px;
+    font-size: 15px;
+    font-family: var(--font-sans);
+    padding: 15px 28px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    transition: background 180ms ease;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--sage);
+    color: #fffdf8;
+  }
+  .btn-primary:hover {
+    background: var(--sage-hover);
+    color: #fffdf8;
+  }
+
+  .btn-secondary {
+    background: var(--rose);
+    color: #6b5b50;
+  }
+  .btn-secondary:hover {
+    background: var(--rose-hover);
+    color: #6b5b50;
+  }
+
+  @media (max-width: 700px) {
+    .hero {
+      display: block;
+      position: static;
+      border-radius: 0;
+      overflow: visible;
+      min-height: 0;
+      padding: 0;
+    }
+    .hero-img {
+      position: static;
+      width: 100%;
+      height: 300px;
+      border-radius: 24px;
+      object-position: 30% 20%;
+    }
+    .hero-scrim {
+      display: none;
+    }
+    .hero-card {
+      position: static;
+      max-width: none;
+      width: 100%;
+      margin-top: 16px;
+      background: var(--surface);
+    }
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 18px 0;
+  }
+
+  .badge {
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .section-head h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(30px, 4vw, 40px);
+    color: #3f382d;
+    margin: 0;
+  }
+
+  .meta {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+    gap: 16px;
+  }
+
+  .service-card {
+    border-radius: 22px;
+    padding: 30px 26px;
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 180ms ease;
+  }
+  .service-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .service-card h3 {
+    font-family: var(--font-script);
+    font-size: 30px;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .service-card p {
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .service-price {
+    margin-top: auto;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+  }
+
+  .banner {
+    background: var(--sage);
+    border-radius: 26px;
+    padding: clamp(26px, 4vw, 40px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+    justify-content: space-between;
+    color: #fbfaf3;
+  }
+
+  .banner-kicker {
+    font-family: var(--font-script);
+    font-size: 32px;
+    margin: 0;
+  }
+
+  .banner-text {
+    font-family: var(--font-serif);
+    font-size: clamp(26px, 3.4vw, 34px);
+    line-height: 1.15;
+    margin: 0;
+    flex: 1;
+    min-width: 240px;
+  }
+
+  .btn-banner {
+    background: #fbfaf3;
+    color: var(--sage-deep);
+    padding: 16px 30px;
+  }
+  .btn-banner:hover {
+    background: #efece2;
+    color: var(--sage-deep);
+  }
+
+  .ueber-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .ueber-img {
+    border-radius: 26px;
+    overflow: hidden;
+    min-height: 360px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 35%;
+  }
+
+  .ueber-card {
+    background: var(--surface);
+    border-radius: 26px;
+    padding: clamp(28px, 3.5vw, 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .ueber-kicker {
+    font-family: var(--font-script);
+    font-size: 34px;
+    color: var(--gold);
+    margin: 0;
+  }
+
+  .ueber-card p {
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .ueber-quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--sage);
+  }
+
+  .kontakt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .kontakt-card {
+    background: var(--surface);
+    border-radius: 26px;
+    padding: 32px 28px;
+  }
+
+  .kontakt-card h3 {
+    font-family: var(--font-script);
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--sage);
+    margin: 0 0 12px;
+  }
+
+  .kontakt-card p {
+    font-size: 15px;
+    line-height: 1.9;
+    margin: 0;
+  }
+
+  .kontakt-note {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  .booking-card {
+    grid-column: 1 / -1;
+  }
+
+  .booking-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    align-items: start;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .field label {
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 11px 14px;
+    min-height: 44px;
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 84px;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: 2px solid var(--sage);
+    outline-offset: 1px;
+  }
+
+  .booking-form button[type="submit"] {
+    justify-self: start;
+    align-self: end;
+    border: none;
+  }
+
+  .booking-confirm {
+    margin-top: 20px;
+    padding: 18px 20px;
+    background: var(--surface-muted);
+    border-radius: 16px;
+  }
+
+  .booking-confirm p {
+    margin: 0 0 10px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+
+  .booking-confirm p:last-child {
+    margin-bottom: 0;
+  }
+
+  .booking-confirm a {
+    color: var(--sage);
+    text-decoration: underline;
+  }
+</style>
+
+<script define:vars={{ bookingVars }}>
+  const form = document.getElementById("booking-form");
+  const confirmEl = document.getElementById("booking-confirm");
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const data = new FormData(form);
+    const name = String(data.get("name") || "").trim();
+    const kontakt = String(data.get("kontakt") || "").trim();
+    const service = String(data.get("service") || "");
+    const wunschtermin = String(data.get("wunschtermin") || "");
+    const nachricht = String(data.get("nachricht") || "").trim();
+
+    const serviceLabel = bookingVars.serviceLabels[service] || service;
+
+    const lines = [
+      `${bookingVars.labelName}: ${name}`,
+      `${bookingVars.labelKontakt}: ${kontakt}`,
+      `${bookingVars.labelLeistung}: ${serviceLabel}`,
+      `${bookingVars.labelTermin}: ${wunschtermin || bookingVars.flexibel}`,
+      `${bookingVars.labelNachricht}: ${nachricht || bookingVars.keine}`,
+    ];
+    const body = lines.join("\n");
+    const subject = `${bookingVars.subjectPrefix}: ${serviceLabel}`;
+    const mailto = `mailto:kopfsache.info@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    if (confirmEl) {
+      const thanks = bookingVars.thanksTemplate.replace(
+        "{name}",
+        name || bookingVars.thanksFallbackName
+      );
+      confirmEl.innerHTML = `
+        <p>${thanks}</p>
+        <p>${bookingVars.fallbackPrefix}<a href="${mailto}">${bookingVars.fallbackLink}</a>${bookingVars.fallbackSuffix}</p>
+      `;
+      confirmEl.hidden = false;
+    }
+
+    window.location.href = mailto;
+    form.reset();
+  });
+</script>

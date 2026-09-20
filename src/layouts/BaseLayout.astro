@@ -1,14 +1,18 @@
 ---
+import type { Lang } from "../i18n/translations";
+
 interface Props {
   title: string;
   description: string;
+  lang?: Lang;
+  alternates?: { hreflang: string; href: string }[];
 }
 
-const { title, description } = Astro.props;
+const { title, description, lang = "de", alternates = [] } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="de">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,6 +21,8 @@ const { title, description } = Astro.props;
 
     <title>{title}</title>
     <meta name="description" content={description} />
+
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

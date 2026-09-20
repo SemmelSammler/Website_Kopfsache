@@ -1,6 +1,14 @@
 ---
 import { Image } from "astro:assets";
 import logo from "../assets/images/kopfsache-logo.png";
+import { useTranslations, altPath, type Lang } from "../i18n/translations";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <header class="site-header">
@@ -19,7 +27,7 @@ import logo from "../assets/images/kopfsache-logo.png";
       type="button"
       aria-expanded="false"
       aria-controls="nav-pills"
-      aria-label="Menü öffnen"
+      aria-label={t("nav.menuLabel")}
     >
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
         <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -29,10 +37,27 @@ import logo from "../assets/images/kopfsache-logo.png";
     </button>
 
     <nav class="nav-pills" id="nav-pills">
-      <a class="pill" href="#leistungen">Leistungen</a>
-      <a class="pill" href="#ueber">Über mich</a>
-      <a class="pill" href="#kontakt">Kontakt</a>
-      <a class="pill pill-cta" href="#kontakt">Termin</a>
+      <a class="pill" href="#leistungen">{t("nav.leistungen")}</a>
+      <a class="pill" href="#ueber">{t("nav.ueber")}</a>
+      <a class="pill" href="#kontakt">{t("nav.kontakt")}</a>
+      <a class="pill pill-cta" href="#kontakt">{t("nav.termin")}</a>
+      <span class="lang-switch" role="group" aria-label="Sprache / Langue">
+        <a
+          class:list={["lang-link", { active: lang === "de" }]}
+          href={altPath("de", "/")}
+          aria-current={lang === "de" ? "page" : undefined}
+        >
+          DE
+        </a>
+        <span class="lang-sep" aria-hidden="true">·</span>
+        <a
+          class:list={["lang-link", { active: lang === "fr" }]}
+          href={altPath("fr", "/")}
+          aria-current={lang === "fr" ? "page" : undefined}
+        >
+          FR
+        </a>
+      </span>
     </nav>
   </div>
 </header>
@@ -46,7 +71,7 @@ import logo from "../assets/images/kopfsache-logo.png";
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
   });
 
-  nav?.querySelectorAll("a").forEach((link) => {
+  nav?.querySelectorAll("a.pill").forEach((link) => {
     link.addEventListener("click", () => {
       nav.classList.remove("open");
       toggle?.setAttribute("aria-expanded", "false");
@@ -122,6 +147,7 @@ import logo from "../assets/images/kopfsache-logo.png";
   .nav-pills {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 10px;
     font-family: var(--font-sans);
     font-size: 14px;
@@ -151,6 +177,33 @@ import logo from "../assets/images/kopfsache-logo.png";
     color: #fffdf8;
   }
 
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    background: var(--surface-muted);
+    font-size: 13px;
+    min-height: 44px;
+  }
+
+  .lang-link {
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+  }
+  .lang-link.active {
+    color: var(--sage);
+    font-weight: 500;
+  }
+  .lang-link:hover {
+    color: var(--gold);
+  }
+
+  .lang-sep {
+    color: var(--line);
+  }
+
   @media (max-width: 560px) {
     .nav-toggle {
       display: inline-flex;
@@ -164,6 +217,7 @@ import logo from "../assets/images/kopfsache-logo.png";
       display: none;
       flex-basis: 100%;
       flex-direction: column;
+      align-items: stretch;
       gap: 8px;
       margin-top: 6px;
     }
@@ -173,6 +227,10 @@ import logo from "../assets/images/kopfsache-logo.png";
     .pill {
       width: 100%;
       justify-content: center;
+    }
+    .lang-switch {
+      justify-content: center;
+      width: 100%;
     }
   }
 </style>

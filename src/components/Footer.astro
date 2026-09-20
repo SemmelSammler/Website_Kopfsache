@@ -1,6 +1,17 @@
+---
+import { useTranslations, type Lang } from "../i18n/translations";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
 <footer class="site-footer">
   <p>© Salon Kopfsache · Walhorn</p>
-  <p><a href="/impressum">Impressum</a> · <a href="/datenschutz">Datenschutz</a></p>
+  <p><a href="/impressum">{t("footer.impressum")}</a> · <a href="/datenschutz">{t("footer.datenschutz")}</a></p>
 </footer>
 
 <style>
