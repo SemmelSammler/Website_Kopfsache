@@ -105,8 +105,37 @@
     white-space:nowrap;
   }
   .nav-cta:hover{background:var(--wine-dark);}
+  .nav-right{display:flex; align-items:center; gap:12px;}
+  .nav-toggle{
+    display:none;
+    background:none;
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:8px 9px;
+    cursor:pointer;
+    color:var(--ink);
+    line-height:0;
+  }
   @media (max-width:640px){
-    nav.links{display:none;}
+    .nav-row{flex-wrap:wrap;}
+    .nav-toggle{display:inline-flex;}
+    .nav-cta{font-size:14px; padding:8px 14px;}
+    nav.links{
+      display:none;
+      order:3;
+      flex-direction:column;
+      gap:0;
+      flex-basis:100%;
+      width:100%;
+      border-top:1px solid var(--line);
+      margin-top:16px;
+      padding-top:4px;
+    }
+    nav.links.open{display:flex;}
+    nav.links a{
+      padding:13px 0;
+      border-bottom:1px solid var(--line);
+    }
   }
 
   /* ---- hero ---- */
@@ -355,13 +384,18 @@
 <header class="site-nav">
   <div class="wrap nav-row">
     <a class="wordmark" href="#top">Kopfsache</a>
-    <nav class="links">
+    <nav class="links" id="nav-links">
       <a href="#ueber">Über uns</a>
       <a href="#preise">Preise</a>
       <a href="#oeffnungszeiten">Öffnungszeiten</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
-    <a class="nav-cta" href="#termin">Termin anfragen</a>
+    <div class="nav-right">
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <a class="nav-cta" href="#termin">Termin anfragen</a>
+    </div>
   </div>
 </header>
 
@@ -420,7 +454,7 @@
           <tr><td>Sonntag</td><td>geschlossen</td></tr>
         </table>
       </div>
-      <div class="addr-block">
+      <div class="addr-block" id="kontakt">
         <h2 style="font-family:var(--font-display); font-size:24px; font-weight:600; margin-top:0;">Standort</h2>
         <p class="label">Adresse</p>
         <p>Hauptstraße 1<br>4841 Walhorn, Belgien</p>
@@ -548,6 +582,21 @@
 
   renderPriceList();
   populateServiceSelect();
+
+  // ---- mobile nav ----
+  var navToggle = document.getElementById('nav-toggle');
+  var navLinks = document.getElementById('nav-links');
+
+  navToggle.addEventListener('click', function(){
+    var open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  navLinks.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
 
   // ---- db capability ----
   var db = null;
