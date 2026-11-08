@@ -1,6 +1,5 @@
 ---
-import { Image } from "astro:assets";
-import logo from "../assets/images/kopfsache-logo.png";
+import LogoMark from "./LogoMark.astro";
 import { useTranslations, altPath, type Lang } from "../i18n/translations";
 
 interface Props {
@@ -26,7 +25,7 @@ const links = [
 <header class="site-header">
   <div class="header-row">
     <a class="brand" href={home ? "#top" : altPath(lang, "/")} aria-label="Kopfsache – Start">
-      <Image src={logo} alt="" width={52} height={52} densities={[1, 2]} class="brand-logo" />
+      <LogoMark width={52} class="brand-logo" />
       <span class="brand-text">
         <span class="brand-name">KOPFSACHE</span>
         <span class="brand-sub">{t("brand.sub")}</span>
@@ -110,10 +109,7 @@ const links = [
   }
 
   .brand-logo {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    object-fit: cover;
+    flex: none;
   }
 
   .brand-text {
@@ -124,9 +120,11 @@ const links = [
   }
 
   .brand-name {
-    font-size: 20px;
-    font-weight: 400;
-    letter-spacing: 0.14em;
+    font-family: "Josefin Sans", var(--font-sans);
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    line-height: 1;
   }
 
   .brand-sub {

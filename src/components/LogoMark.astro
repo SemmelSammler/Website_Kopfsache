@@ -1,0 +1,18 @@
+---
+/** Kopfsache-Bildmarke: Scherenklinge gekreuzt mit Haarklemme */
+interface Props {
+  width?: number;
+  pin?: string;
+  gold?: string;
+  class?: string;
+}
+const { width = 44, pin = "#3f3c37", gold = "#a8873f", class: cls } = Astro.props;
+---
+
+<svg class={cls} width={width} height={Math.round(width * 0.68)} viewBox="0 0 100 68" fill="none" aria-hidden="true">
+  <path d="M22 8 L74 60 A2.1 2.1 0 0 0 76.97 57.03 L76.97 57.03 76.10 56.16 75.24 55.30 74.37 54.43 73.50 53.56 72.64 52.70 71.77 51.83 70.90 50.96 70.04 50.10 69.17 49.23 68.87 47.80 68.42 46.52 67.70 45.50 66.68 44.78 65.40 44.33 63.97 44.03 62.54 43.73 61.26 43.28 60.24 42.56 59.52 41.54 59.07 40.26 58.77 38.83 58.47 37.40 58.02 36.12 57.30 35.10 56.28 34.38 55.00 33.93 53.57 33.63 52.14 33.33 50.86 32.88 49.84 32.16 49.12 31.14 48.67 29.86 48.37 28.43 48.07 27.00 47.62 25.72 46.90 24.70 45.88 23.98 44.60 23.53 43.17 23.23 42.30 22.36 41.44 21.50 40.57 20.63 39.70 19.76 38.84 18.90 37.97 18.03 37.10 17.16 36.24 16.30 35.37 15.43 34.50 14.56 33.64 13.70 32.77 12.83 31.90 11.96 31.04 11.10 30.17 10.23 29.30 9.36 28.44 8.50 27.57 7.63 26.70 6.76 25.84 5.90 24.97 5.03" stroke={pin} stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"></path>
+  <circle cx="19" cy="61" r="7" stroke={gold} stroke-width="2.4"></circle>
+  <path d="M24.5 55.5 L38 44" stroke={gold} stroke-width="2.4" stroke-linecap="round"></path>
+  <path d="M36 44 L86 2 L46 48.5 C42.5 48.5 38 47 36 44 Z" fill={gold}></path>
+  <circle cx="41" cy="45.5" r="1.4" fill="#ffffff"></circle>
+</svg>

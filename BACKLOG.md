@@ -3,7 +3,7 @@
 Offene Punkte, die nicht sofort umgesetzt werden.
 
 ## Rechtliches / Einverständnis
-- [ ] Schriftliche Zustimmung von Bianca und Lara zur Veröffentlichung ihrer Fotos auf der Website einholen. Lara ist minderjährig (17): zusätzlich Zustimmung der Eltern.
+- [x] Zustimmung von Bianca und Lara (bei Lara auch der Eltern) zur Veröffentlichung ihrer Fotos liegt vor.
 - [ ] Impressum und Datenschutz vervollständigen (voller Name Kimberly Bonni, Unternehmensnummer BCE/KBO) und ins Französische übersetzen.
 
 ## Google
@@ -15,6 +15,9 @@ Offene Punkte, die nicht sofort umgesetzt werden.
 - [ ] Fotos für Herren, Kinder, Hochsteck/Braut.
 - [ ] Link zur Facebook-Seite.
 - [ ] Montag: geöffnet oder geschlossen? (aktuell: geschlossen)
+
+## Logo
+- [ ] Neues Logo (Variante B, Josefin Sans) als Vektor-Datei für Druck/Schaufenster/Instagram aufbereiten, wenn Kimberly zustimmt.
 
 ## Ideen
 - [ ] Online-Terminbuchung (z. B. Terminbuchungsseite im Google Kalender) statt Formular.
