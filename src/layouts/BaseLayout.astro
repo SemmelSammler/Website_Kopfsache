@@ -27,7 +27,7 @@ const { title, description, lang = "de", alternates = [] } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&family=Parisienne&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -38,28 +38,31 @@ const { title, description, lang = "de", alternates = [] } = Astro.props;
 
 <style is:global>
   :root {
-    --bg: #f6f3ea;
-    --surface: #fffdf8;
-    --surface-muted: #ede7da;
-    --ink: #3f382d;
-    --ink-soft: #5e5648;
-    --ink-muted: #a2947f;
-    --sage: #7e8c72;
-    --sage-hover: #6e7b63;
-    --sage-deep: #4f5a45;
-    --sage-tint: #dce1d4;
-    --rose: #efe0d8;
-    --rose-hover: #e7d3c8;
-    --rose-ink: #a06f4e;
-    --sand: #f0e9d8;
-    --gold: #c9922e;
-    --gold-deep: #9a7526;
-    --line: #e7e1d2;
-    --brand-dark: #4a4034;
+    /* Kopfsache: Weiß + Beige, Gold aus dem Logo, eine Schrift (Oxygen) */
+    --white: #ffffff;
+    --beige: #f4ebd6;
+    --beige-line: #e2d5b6;
+    --gold: #a8873f;        /* Linien, Rahmen, Icons */
+    --gold-strong: #8a6d2f; /* Knopf-Hintergrund (weiße Schrift 4,9:1) */
+    --gold-text: #7a5f24;   /* goldene Schrift (6:1 auf Weiß, 5:1 auf Beige) */
+    --ink: #2b2a28;
+    --ink-soft: #3f3c37;
+    --muted: #6b6458;
 
-    --font-serif: "Cormorant Garamond", Georgia, "Iowan Old Style", serif;
-    --font-sans: "Jost", "Segoe UI", system-ui, sans-serif;
-    --font-script: "Parisienne", cursive;
+    --font-sans: "Oxygen", "Segoe UI", system-ui, sans-serif;
+    --font-serif: var(--font-sans);
+
+    --container: 1120px;
+    --section-y: clamp(64px, 8vw, 96px);
+    --gutter: 24px;
+
+    /* alte Namen, damit Impressum/Datenschutz weiter funktionieren */
+    --bg: var(--white);
+    --surface: var(--white);
+    --surface-muted: var(--beige);
+    --ink-muted: var(--muted);
+    --sage: var(--gold-text);
+    --line: var(--beige-line);
   }
 
   *,
@@ -74,12 +77,26 @@ const { title, description, lang = "de", alternates = [] } = Astro.props;
 
   body {
     margin: 0;
-    background: var(--bg);
-    color: var(--ink-soft);
+    background: var(--white);
+    color: var(--ink);
     font-family: var(--font-sans);
-    font-size: 16px;
-    line-height: 1.6;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 400;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  strong,
+  b {
+    font-weight: 700;
   }
 
   img {
@@ -88,11 +105,93 @@ const { title, description, lang = "de", alternates = [] } = Astro.props;
   }
 
   a {
-    color: var(--sage);
+    color: var(--gold-text);
     text-decoration: none;
   }
   a:hover {
-    color: var(--gold);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gold-strong);
+    outline-offset: 3px;
+  }
+
+  /* Abschnitte: einheitlicher Rhythmus */
+  .section {
+    padding: var(--section-y) var(--gutter);
+  }
+  .section-beige {
+    background: var(--beige);
+  }
+  .container {
+    max-width: var(--container);
+    margin: 0 auto;
+  }
+  .section-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    margin: 0 auto clamp(40px, 5vw, 56px);
+  }
+  .section-head h2 {
+    margin: 0;
+    font-size: clamp(32px, 4vw, 44px);
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+  }
+  .section-head p {
+    margin: 0;
+    max-width: 40em;
+    text-wrap: balance;
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .divider {
+    display: block;
+    width: 80px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  /* Knöpfe */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 12px 26px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid var(--gold);
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+    white-space: nowrap;
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--gold-text);
+  }
+  .btn-outline:hover {
+    background: var(--gold-strong);
+    border-color: var(--gold-strong);
+    color: var(--white);
+  }
+  .btn-solid {
+    background: var(--gold-strong);
+    border-color: var(--gold-strong);
+    color: var(--white);
+  }
+  .btn-solid:hover {
+    background: var(--gold-text);
+    border-color: var(--gold-text);
+    color: var(--white);
   }
 
   @media (prefers-reduced-motion: reduce) {

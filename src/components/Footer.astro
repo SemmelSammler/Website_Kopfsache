@@ -3,38 +3,93 @@ import { useTranslations, type Lang } from "../i18n/translations";
 
 interface Props {
   lang: Lang;
+  /** Trennlinie oben (auf der Startseite, weil Kontakt direkt darüber auch beige ist) */
+  divider?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, divider = true } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<footer class="site-footer">
-  <p>© Salon Kopfsache · Walhorn</p>
-  <p><a href="/impressum">{t("footer.impressum")}</a> · <a href="/datenschutz">{t("footer.datenschutz")}</a></p>
+<footer class:list={["site-footer", { "no-divider": !divider }]}>
+  <div class="footer-inner">
+    <div class="social">
+      <a href="https://www.instagram.com/dasistalles.kopfsache/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg>
+      </a>
+    </div>
+    <p class="legal">
+      <span>© Salon Kopfsache · Walhorn</span>
+      <span class="legal-links">
+        <a href="/impressum">{t("footer.impressum")}</a>
+        <a href="/datenschutz">{t("footer.datenschutz")}</a>
+      </span>
+    </p>
+  </div>
 </footer>
 
 <style>
   .site-footer {
-    border-top: 1px solid var(--line);
-    padding-top: 20px;
-    padding-bottom: 32px;
+    background: var(--beige);
+    padding: 0 var(--gutter) 40px;
+  }
+
+  .no-divider {
+    padding-top: 40px;
+  }
+  .no-divider .footer-inner {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .footer-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    border-top: 1px solid var(--beige-line);
+    padding-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .social a {
+    width: 46px;
+    height: 46px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    transition: background 160ms ease, color 160ms ease;
+  }
+  .social a:hover {
+    background: var(--ink);
+    color: var(--white);
+  }
+
+  .legal {
+    margin: 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 8px;
+    justify-content: center;
+    gap: 8px 28px;
     font-size: 13px;
-    color: var(--ink-muted);
+    color: var(--muted);
   }
 
-  .site-footer p {
-    margin: 0;
+  .legal-links {
+    display: inline-flex;
+    gap: 20px;
   }
 
-  .site-footer a {
-    color: var(--ink-muted);
+  .legal a {
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
-  .site-footer a:hover {
-    color: var(--gold);
+  .legal a:hover {
+    color: var(--ink);
   }
 </style>

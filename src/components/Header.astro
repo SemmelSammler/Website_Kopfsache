@@ -5,19 +5,31 @@ import { useTranslations, altPath, type Lang } from "../i18n/translations";
 
 interface Props {
   lang: Lang;
+  /** Auf Unterseiten zeigen die Anker auf die Startseite */
+  home?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, home = true } = Astro.props;
 const t = useTranslations(lang);
+const base = home ? "" : altPath(lang, "/");
+
+const links = [
+  { href: `${base}#ueber`, label: t("nav.ueber") },
+  { href: `${base}#team`, label: t("nav.team") },
+  { href: `${base}#leistungen`, label: t("nav.leistungen") },
+  { href: `${base}#preise`, label: t("nav.preise") },
+  { href: `${base}#galerie`, label: t("nav.galerie") },
+  { href: `${base}#kontakt`, label: t("nav.kontakt") },
+];
 ---
 
 <header class="site-header">
-  <div class="wrap header-row">
-    <a class="brand" href="#top" aria-label="Kopfsache – Start">
-      <Image src={logo} alt="" width={46} height={46} class="brand-logo" />
+  <div class="header-row">
+    <a class="brand" href={home ? "#top" : altPath(lang, "/")} aria-label="Kopfsache – Start">
+      <Image src={logo} alt="" width={52} height={52} densities={[1, 2]} class="brand-logo" />
       <span class="brand-text">
         <span class="brand-name">KOPFSACHE</span>
-        <span class="brand-sub">Damen · Herren · Kinder</span>
+        <span class="brand-sub">{t("brand.sub")}</span>
       </span>
     </a>
 
@@ -26,52 +38,40 @@ const t = useTranslations(lang);
       id="nav-toggle"
       type="button"
       aria-expanded="false"
-      aria-controls="nav-pills"
+      aria-controls="site-nav"
       aria-label={t("nav.menuLabel")}
     >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <line x1="3" y1="6" x2="21" y2="6"></line>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+        <line x1="3" y1="7" x2="21" y2="7"></line>
         <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
+        <line x1="3" y1="17" x2="21" y2="17"></line>
       </svg>
     </button>
 
-    <nav class="nav-pills" id="nav-pills">
-      <a class="pill" href="#leistungen">{t("nav.leistungen")}</a>
-      <a class="pill" href="#ueber">{t("nav.ueber")}</a>
-      <a class="pill" href="#kontakt">{t("nav.kontakt")}</a>
-      <a class="pill pill-cta" href="#kontakt">{t("nav.termin")}</a>
-      <span class="lang-switch" role="group" aria-label="Sprache / Langue">
-        <a
-          class:list={["lang-link", { active: lang === "de" }]}
-          href={altPath("de", "/")}
-          aria-current={lang === "de" ? "page" : undefined}
-        >
-          DE
-        </a>
-        <span class="lang-sep" aria-hidden="true">·</span>
-        <a
-          class:list={["lang-link", { active: lang === "fr" }]}
-          href={altPath("fr", "/")}
-          aria-current={lang === "fr" ? "page" : undefined}
-        >
-          FR
-        </a>
-      </span>
+    <nav class="site-nav" id="site-nav">
+      <ul class="nav-links">
+        {links.map((l) => <li><a class="nav-link" href={l.href}>{l.label}</a></li>)}
+      </ul>
+      <div class="nav-actions">
+        <span class="lang-switch" role="group" aria-label="Sprache / Langue">
+          <a class:list={["lang-link", { active: lang === "de" }]} href={altPath("de", "/")} aria-current={lang === "de" ? "page" : undefined}>DE</a>
+          <span class="lang-sep" aria-hidden="true">|</span>
+          <a class:list={["lang-link", { active: lang === "fr" }]} href={altPath("fr", "/")} aria-current={lang === "fr" ? "page" : undefined}>FR</a>
+        </span>
+        <a class="btn btn-outline" href={`${base}#termin`}>{t("nav.termin")}</a>
+      </div>
     </nav>
   </div>
 </header>
 
 <script>
   const toggle = document.getElementById("nav-toggle");
-  const nav = document.getElementById("nav-pills");
-
+  const nav = document.getElementById("site-nav");
   toggle?.addEventListener("click", () => {
     const open = nav?.classList.toggle("open");
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
   });
-
-  nav?.querySelectorAll("a.pill").forEach((link) => {
+  nav?.querySelectorAll("a[href*='#']").forEach((link) => {
     link.addEventListener("click", () => {
       nav.classList.remove("open");
       toggle?.setAttribute("aria-expanded", "false");
@@ -84,153 +84,150 @@ const t = useTranslations(lang);
     position: sticky;
     top: 0;
     z-index: 20;
-    background: rgba(255, 253, 248, 0.94);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
+    background: var(--white);
+    border-bottom: 1px solid var(--beige-line);
   }
 
   .header-row {
-    padding: 14px 24px;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 12px var(--gutter);
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 12px 32px;
   }
 
   .brand {
     display: flex;
     align-items: center;
     gap: 12px;
+    color: var(--ink);
+  }
+  .brand:hover {
+    color: var(--ink);
   }
 
   .brand-logo {
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     object-fit: cover;
-    width: 46px;
-    height: 46px;
   }
 
   .brand-text {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 3px;
     line-height: 1.1;
   }
 
   .brand-name {
-    font-family: var(--font-serif);
-    font-size: 21px;
-    letter-spacing: 0.16em;
-    color: var(--brand-dark);
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
   }
 
   .brand-sub {
-    font-family: var(--font-sans);
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    color: var(--gold);
-    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--gold-text);
   }
 
-  .nav-toggle {
-    display: none;
-    background: none;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 9px 11px;
-    cursor: pointer;
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--gold-text);
+    padding: 12px 0;
+  }
+  .nav-link:hover {
     color: var(--ink);
   }
 
-  .nav-pills {
+  .nav-actions {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 10px;
-    font-family: var(--font-sans);
-    font-size: 14px;
-  }
-
-  .pill {
-    padding: 9px 18px;
-    border-radius: 999px;
-    background: var(--surface-muted);
-    color: var(--ink-soft);
-    transition: background 180ms ease;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-  }
-  .pill:hover {
-    background: var(--rose-hover);
-    color: var(--ink-soft);
-  }
-
-  .pill-cta {
-    background: var(--sage);
-    color: #fffdf8;
-  }
-  .pill-cta:hover {
-    background: var(--sage-hover);
-    color: #fffdf8;
+    gap: 20px;
   }
 
   .lang-switch {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 9px 14px;
-    border-radius: 999px;
-    background: var(--surface-muted);
     font-size: 13px;
-    min-height: 44px;
   }
 
   .lang-link {
-    color: var(--ink-muted);
-    letter-spacing: 0.04em;
+    color: var(--muted);
+    padding: 12px 2px;
+    letter-spacing: 0.06em;
   }
   .lang-link.active {
-    color: var(--sage);
-    font-weight: 500;
-  }
-  .lang-link:hover {
-    color: var(--gold);
+    color: var(--ink);
+    font-weight: 700;
   }
 
   .lang-sep {
-    color: var(--line);
+    color: var(--beige-line);
   }
 
-  @media (max-width: 560px) {
+  .nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    background: none;
+    border: 1px solid var(--gold);
+    color: var(--gold-text);
+    cursor: pointer;
+  }
+
+  @media (max-width: 1080px) {
     .nav-toggle {
       display: inline-flex;
-      order: 1;
     }
-    .brand {
-      order: 0;
-    }
-    .nav-pills {
-      order: 3;
+    .site-nav {
       display: none;
       flex-basis: 100%;
       flex-direction: column;
       align-items: stretch;
-      gap: 8px;
-      margin-top: 6px;
+      gap: 16px;
+      padding: 8px 0 16px;
+      border-top: 1px solid var(--beige-line);
     }
-    .nav-pills.open {
+    .site-nav.open {
       display: flex;
     }
-    .pill {
-      width: 100%;
-      justify-content: center;
+    .nav-links {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
     }
-    .lang-switch {
-      justify-content: center;
-      width: 100%;
+    .nav-link {
+      display: block;
+      padding: 12px 0;
+      font-size: 16px;
+      border-bottom: 1px solid var(--beige);
+    }
+    .nav-actions {
+      justify-content: space-between;
     }
   }
 </style>
