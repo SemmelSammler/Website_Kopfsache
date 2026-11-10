@@ -47,13 +47,21 @@ const extras = [
   { title: t("leistungen.haus"), text: t("leistungen.hausText") },
 ];
 
-const prices = [
+/**
+ * Preise vorübergehend ausgeblendet, bis Kimberly die finale Preisliste
+ * bestätigt hat. Zum Wiedereinblenden einfach auf true setzen.
+ */
+const SHOW_PRICES = false;
+
+const pricesAll = [
   { title: t("preise.damen"), text: t("preise.damenText"), price: t("preise.damenPreis") },
   { title: t("preise.herren"), text: t("preise.herrenText"), price: t("preise.herrenPreis") },
   { title: t("preise.kinder"), text: t("preise.kinderText"), price: t("preise.kinderPreis") },
   { title: t("preise.anlass"), text: t("preise.anlassText"), price: t("preise.aufAnfrage") },
   { title: t("preise.haus"), text: t("preise.hausText"), price: t("preise.aufAnfrage") },
 ];
+
+const prices = SHOW_PRICES ? pricesAll : pricesAll.map((p) => ({ ...p, price: t("preise.aufAnfrage") }));
 
 const beforeAfter = [
   {
@@ -267,7 +275,15 @@ const bookingVars = {
           <div class="section-head">
             <h2>{t("preise.title")}</h2>
             <span class="divider" aria-hidden="true"></span>
-            <p>{t("preise.note")}</p>
+            {
+              SHOW_PRICES ? (
+                <p>{t("preise.note")}</p>
+              ) : (
+                <p>
+                  {t("preise.anfrageNote")} <a href={PHONE_LINK}><strong>{PHONE_DISPLAY}</strong></a>
+                </p>
+              )
+            }
           </div>
           <table class="price-table">
             <thead>
@@ -290,7 +306,7 @@ const bookingVars = {
               }
             </tbody>
           </table>
-          <p class="price-hint">{t("preise.hint")}</p>
+          {SHOW_PRICES && <p class="price-hint">{t("preise.hint")}</p>}
         </div>
       </section>
 

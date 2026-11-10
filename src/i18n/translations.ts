@@ -82,6 +82,7 @@ export const ui = {
     "preise.hausText": "nach Vereinbarung",
     "preise.aufAnfrage": "auf Anfrage",
     "preise.hint": "Der genaue Preis hängt von Haarlänge und Aufwand ab. Wir sagen ihn dir vorher.",
+    "preise.anfrageNote": "Unsere Preise nennen wir dir gern persönlich. Ruf uns einfach an:",
 
     "galerie.title": "Vorher / Nachher",
     "galerie.vorher": "Vorher",
@@ -220,6 +221,7 @@ export const ui = {
     "preise.hausText": "sur rendez-vous",
     "preise.aufAnfrage": "sur demande",
     "preise.hint": "Le prix exact dépend de la longueur et du travail. Nous vous l'annonçons avant.",
+    "preise.anfrageNote": "Nous vous communiquons volontiers nos tarifs personnellement. Appelez-nous :",
 
     "galerie.title": "Avant / Après",
     "galerie.vorher": "Avant",
