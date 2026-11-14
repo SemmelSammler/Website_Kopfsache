@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kopfsache-walhorn.be/sitemap.xml
