@@ -11,6 +11,9 @@ Offene Punkte, die nicht sofort umgesetzt werden.
 - [ ] Montag geöffnet oder geschlossen?
 - [ ] Unternehmensnummer (BCE/KBO) fürs Impressum
 - [ ] Online-Terminbuchung: gewünscht oder nicht?
+- [ ] Bildrechte Fotoshooting: Wer hat fotografiert? Muss der Name auf der Website stehen (z. B. „Fotos: …“ in der Fußzeile)?
+- [ ] Bestätigen: Blonde mit Brille = Kimberly, graue Kurzhaare = Bianca
+- [ ] Startseite: Variante A, B oder C wählen; Bereich „Unser Salon“ ja/nein
 
 ## Rechtliches / Einverständnis
 - [x] Zustimmung von Bianca und Lara (bei Lara auch der Eltern) zur Veröffentlichung ihrer Fotos liegt vor.
