@@ -12,6 +12,11 @@ import teamGruppe from "../assets/images/team-gruppe.jpg";
 import leistungSchnitt from "../assets/images/leistung-schnitt.jpg";
 import leistungFarbe from "../assets/images/leistung-farbe.jpg";
 import glyntRegal from "../assets/images/glynt-regal.jpg";
+import salonLampen from "../assets/images/salon-lampen.jpg";
+import farbberatung from "../assets/images/farbberatung.jpg";
+import salonSpiegel from "../assets/images/salon-spiegel.jpg";
+import salonWaschplatz from "../assets/images/salon-waschplatz.jpg";
+import salonEmpfang from "../assets/images/salon-empfang.jpg";
 import balayageVorher from "../assets/images/balayage-vorher.jpg";
 import balayageNachher from "../assets/images/balayage-nachher.jpg";
 import bobVorher from "../assets/images/bob-vorher.jpg";
@@ -28,6 +33,15 @@ const t = useTranslations(lang);
 const PHONE_DISPLAY = "087 76 67 35";
 const PHONE_LINK = "tel:+3287766735";
 const INSTAGRAM = "https://www.instagram.com/dasistalles.kopfsache/";
+
+const slides = [
+  { src: salonInnen, alt: t("hero.imgAlt"), pos: "50% 60%" },
+  { src: kimberlySalon, alt: t("hero.slide2Alt"), pos: "68% 30%" },
+  { src: salonLampen, alt: t("hero.slide3Alt"), pos: "50% 50%" },
+  { src: farbberatung, alt: t("hero.slide4Alt"), pos: "50% 45%" },
+];
+
+const heroFacts = [t("hero.fact1"), t("hero.fact2"), t("hero.fact3"), t("hero.fact4")];
 
 const timeline = [
   { year: "2008", label: t("ueber.t1") },
@@ -148,25 +162,44 @@ const bookingVars = {
     <Header lang={lang} />
 
     <main>
-      <!-- Bild oben -->
-      <section class="hero">
-        <Image
-          src={salonInnen}
-          alt={t("hero.imgAlt")}
-          class="hero-img"
-          widths={[640, 1024, 1600, 2560]}
-          sizes="100vw"
-          loading="eager"
-          fetchpriority="high"
-        />
-        <div class="hero-card">
+      <!-- Bild oben: großes Bild mit Bildwechsel -->
+      <section class="hero" aria-roledescription="carousel" aria-label={t("hero.carouselLabel")}>
+        <div class="hero-slides">
+          {
+            slides.map((sl, i) => (
+              <Image
+                src={sl.src}
+                alt={i === 0 ? sl.alt : ""}
+                aria-hidden={i === 0 ? undefined : "true"}
+                class:list={["hero-slide", { active: i === 0 }]}
+                widths={[640, 1024, 1600, 2560]}
+                sizes="100vw"
+                loading={i === 0 ? "eager" : "lazy"}
+                fetchpriority={i === 0 ? "high" : "auto"}
+                style={`object-position:${sl.pos}`}
+                data-slide={i}
+              />
+            ))
+          }
+        </div>
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-content">
+          <p class="hero-kicker">KOPFSACHE · WALHORN</p>
           <h1>{t("hero.title")}</h1>
-          <span class="divider" aria-hidden="true"></span>
-          <p>{t("hero.text")}</p>
           <div class="hero-actions">
             <a class="btn btn-solid" href="#termin">{t("booking.title")}</a>
-            <a class="btn btn-outline" href={PHONE_LINK}>{PHONE_DISPLAY}</a>
+            <a class="btn btn-light" href={PHONE_LINK}>{PHONE_DISPLAY}</a>
           </div>
+          <ul class="hero-facts">
+            {heroFacts.map((f) => <li>{f}</li>)}
+          </ul>
+        </div>
+        <div class="hero-dots">
+          {
+            slides.map((_, i) => (
+              <button type="button" class:list={["hero-dot", { active: i === 0 }]} data-dot={i} aria-label={`${t("hero.slideLabel")} ${i + 1}`} aria-current={i === 0 ? "true" : undefined}></button>
+            ))
+          }
         </div>
       </section>
 
@@ -275,6 +308,23 @@ const bookingVars = {
               <p>{t("glynt.text")} <strong>GLYNT</strong>.</p>
               <p class="small">{t("glynt.sub")}</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Unser Salon -->
+      <section id="salon" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>{t("salon.title")}</h2>
+            <span class="divider" aria-hidden="true"></span>
+            <p>{t("salon.text")}</p>
+          </div>
+          <div class="salon-grid">
+            <Image src={salonLampen} alt={t("salon.img1")} class="salon-img salon-big" widths={[640, 1100, 1600]} sizes="(max-width: 760px) 100vw, 560px" loading="lazy" />
+            <Image src={salonSpiegel} alt={t("salon.img2")} class="salon-img salon-wide" widths={[640, 1100, 1600]} sizes="(max-width: 760px) 100vw, 560px" loading="lazy" />
+            <Image src={salonWaschplatz} alt={t("salon.img3")} class="salon-img" widths={[480, 800]} sizes="(max-width: 760px) 50vw, 280px" loading="lazy" style="object-position:50% 45%" />
+            <Image src={salonEmpfang} alt={t("salon.img4")} class="salon-img" widths={[480, 800]} sizes="(max-width: 760px) 50vw, 280px" loading="lazy" style="object-position:72% 50%" />
           </div>
         </div>
       </section>
@@ -452,69 +502,194 @@ const bookingVars = {
     scroll-margin-top: 80px;
   }
 
-  /* ---------- Bild oben ---------- */
+  /* ---------- Bild oben: Bildwechsel ---------- */
   .hero {
     position: relative;
+    height: clamp(560px, 50vw, 680px);
+    overflow: hidden;
     background: var(--ink);
+    color: var(--white);
   }
 
-  .hero-img {
-    width: 100%;
-    height: clamp(420px, 46vw, 600px);
-    object-fit: cover;
-    object-position: 50% 60%;
-  }
-
-  .hero-card {
+  .hero-slides,
+  .hero-shade {
     position: absolute;
-    left: 50%;
-    bottom: clamp(24px, 4vw, 48px);
-    transform: translateX(-50%);
-    width: min(560px, calc(100% - 2 * var(--gutter)));
-    background: rgba(255, 255, 255, 0.96);
-    padding: 32px 36px;
+    inset: 0;
+  }
+
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1200ms ease;
+  }
+
+  .hero-slide.active {
+    opacity: 1;
+  }
+
+  .hero-shade {
+    background: linear-gradient(90deg, rgba(20, 18, 15, 0.74) 0%, rgba(20, 18, 15, 0.38) 45%, rgba(20, 18, 15, 0) 72%);
+  }
+
+  .hero-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 var(--gutter) clamp(48px, 6vw, 72px);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    text-align: center;
+    gap: 20px;
   }
 
-  .hero-card h1 {
+  .hero-kicker {
     margin: 0;
-    font-size: clamp(28px, 3.4vw, 36px);
-    line-height: 1.2;
-    letter-spacing: 0.01em;
+    font-family: "Josefin Sans", var(--font-sans);
+    font-weight: 300;
+    font-size: 17px;
+    letter-spacing: 0.3em;
   }
 
-  .hero-card p {
+  .hero h1 {
     margin: 0;
-    font-size: 16px;
-    text-wrap: balance;
+    max-width: 12em;
+    font-size: clamp(36px, 5vw, 62px);
+    font-weight: 300;
+    line-height: 1.06;
+    color: var(--white);
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 12px;
-    padding-top: 4px;
   }
 
-  @media (max-width: 640px) {
-    .hero-img {
-      height: 340px;
+  .btn-light {
+    background: transparent;
+    border-color: var(--white);
+    color: var(--white);
+  }
+  .btn-light:hover {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--ink);
+  }
+
+  .hero-facts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    font-size: 15px;
+    color: var(--beige);
+  }
+
+  .hero-facts li::before {
+    content: "✓";
+    margin-right: 8px;
+  }
+
+  .hero-dots {
+    position: absolute;
+    right: var(--gutter);
+    bottom: clamp(48px, 6vw, 72px);
+    display: flex;
+    gap: 4px;
+  }
+
+  .hero-dot {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-dot::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid var(--white);
+    transition: background 200ms ease;
+  }
+
+  .hero-dot.active::after {
+    background: var(--white);
+  }
+
+  @media (max-width: 760px) {
+    .hero {
+      height: 600px;
     }
-    .hero-card {
-      position: static;
-      transform: none;
-      width: auto;
-      padding: 32px var(--gutter) 40px;
-      background: var(--white);
+    .hero-shade {
+      background: linear-gradient(0deg, rgba(20, 18, 15, 0.85) 0%, rgba(20, 18, 15, 0.55) 50%, rgba(20, 18, 15, 0.1) 80%);
     }
-    .hero-actions {
-      flex-direction: column;
-      align-self: stretch;
+    .hero-content {
+      padding-bottom: 72px;
+      gap: 16px;
+    }
+    .hero-actions .btn {
+      flex: 1 1 100%;
+    }
+    .hero-facts {
+      font-size: 14px;
+      gap: 6px 18px;
+    }
+    .hero-dots {
+      left: 0;
+      right: 0;
+      bottom: 20px;
+      justify-content: center;
+    }
+  }
+
+  /* ---------- Unser Salon ---------- */
+  .salon-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(2, clamp(180px, 22vw, 270px));
+    gap: 12px;
+  }
+
+  .salon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .salon-big {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .salon-wide {
+    grid-column: span 2;
+  }
+
+  @media (max-width: 760px) {
+    .salon-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: 260px 200px 180px;
+      gap: 8px;
+    }
+    .salon-big,
+    .salon-wide {
+      grid-column: 1 / -1;
+      grid-row: auto;
     }
   }
 
@@ -1107,6 +1282,50 @@ const bookingVars = {
     }
   }
 </style>
+
+<script>
+  const hero = document.querySelector(".hero");
+  const heroSlides = hero ? Array.from(hero.querySelectorAll(".hero-slide")) : [];
+  const heroDots = hero ? Array.from(hero.querySelectorAll(".hero-dot")) : [];
+  let heroIndex = 0;
+  let heroTimer: number | undefined;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function showSlide(n: number) {
+    heroIndex = (n + heroSlides.length) % heroSlides.length;
+    heroSlides.forEach((el, i) => el.classList.toggle("active", i === heroIndex));
+    heroDots.forEach((el, i) => {
+      el.classList.toggle("active", i === heroIndex);
+      if (i === heroIndex) el.setAttribute("aria-current", "true");
+      else el.removeAttribute("aria-current");
+    });
+  }
+
+  function startHero() {
+    if (reduceMotion || heroSlides.length < 2) return;
+    stopHero();
+    heroTimer = window.setInterval(() => showSlide(heroIndex + 1), 5000);
+  }
+
+  function stopHero() {
+    if (heroTimer) window.clearInterval(heroTimer);
+  }
+
+  // Bilder 2-4 vorladen, sobald die Seite steht
+  window.addEventListener("load", () => {
+    heroSlides.slice(1).forEach((el) => ((el as HTMLImageElement).loading = "eager"));
+    startHero();
+  });
+
+  heroDots.forEach((dot, i) =>
+    dot.addEventListener("click", () => {
+      showSlide(i);
+      startHero();
+    })
+  );
+
+  document.addEventListener("visibilitychange", () => (document.hidden ? stopHero() : startHero()));
+</script>
 
 <script define:vars={{ bookingVars }}>
   const form = document.getElementById("booking-form");
