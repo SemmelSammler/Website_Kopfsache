@@ -2,11 +2,22 @@
 
 Offene Punkte, die nicht sofort umgesetzt werden.
 
+## Heute Abend mit Kimberly (14.11.)
+- [ ] Vorschau mit den neuen Bildern zeigen, Feedback sammeln
+- [ ] Kimberly in der Google Search Console als Inhaberin hinzufügen (Einstellungen → Nutzer und Berechtigungen)
+- [ ] Google-Unternehmensprofil übernehmen (mit Kimberlys eigenem Konto) und Website eintragen
+- [ ] Website-Link in Instagram-Bio und Facebook-Info eintragen, Facebook-Link an Jason
+- [ ] Finale Preisliste festlegen (danach Preise wieder einblenden: SHOW_PRICES in HomePage.astro)
+- [ ] Montag geöffnet oder geschlossen?
+- [ ] Unternehmensnummer (BCE/KBO) fürs Impressum
+- [ ] Online-Terminbuchung: gewünscht oder nicht?
+
 ## Rechtliches / Einverständnis
 - [x] Zustimmung von Bianca und Lara (bei Lara auch der Eltern) zur Veröffentlichung ihrer Fotos liegt vor.
 - [ ] Impressum und Datenschutz vervollständigen (voller Name Kimberly Bonni, Unternehmensnummer BCE/KBO) und ins Französische übersetzen.
 
 ## Google
+- [x] Website in der Google Search Console angemeldet, Sitemap eingereicht (14.11.)
 - [ ] Kimberly übernimmt das Google-Unternehmensprofil („Inhaber dieses Unternehmens?“), trägt die Website ein und prüft die Öffnungszeiten (Google zeigt aktuell „öffnet Mo 09:00“, Website sagt „Mo geschlossen“).
 
 ## Inhalte, die noch fehlen
