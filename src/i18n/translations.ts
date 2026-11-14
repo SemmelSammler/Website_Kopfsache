@@ -25,7 +25,7 @@ export const ui = {
 
     "hero.title": "Friseursalon Kopfsache",
     "hero.text": "Damen · Herren · Kinder in Walhorn. Nur auf Termin.",
-    "hero.imgAlt": "Kimberly vor dem Salon Kopfsache in Walhorn",
+    "hero.imgAlt": "Blick in den Salon Kopfsache in Walhorn mit runden Spiegeln und Waschplatz",
 
     "ueber.title": "Über uns",
     "ueber.p1":
@@ -49,9 +49,9 @@ export const ui = {
 
     "leistungen.title": "Leistungen",
     "leistungen.schnitt": "Schnitt & Styling",
-    "leistungen.schnittAlt": "Kupferfarbener Bob",
+    "leistungen.schnittAlt": "Haarschnitt mit Schere und Kamm",
     "leistungen.farbe": "Farbe & Strähnen",
-    "leistungen.farbeAlt": "Blonde Strähnen, weich geföhnt",
+    "leistungen.farbeAlt": "Farbberatung mit Farbsträhne am Haar",
     "leistungen.more": "Zu den Preisen",
     "leistungen.herren": "Herren",
     "leistungen.herrenText": "Klassisch oder modern, auf Wunsch mit Bart.",
@@ -61,7 +61,9 @@ export const ui = {
     "leistungen.anlassText": "Hochsteckfrisuren und Braut-Styling für deinen Tag.",
     "leistungen.haus": "Hausbesuche",
     "leistungen.hausText": "Wer nicht in den Salon kommen kann, den besuchen wir zu Hause.",
-    "glynt.text": "Für Farbe und Pflege arbeiten wir mit Produkten von",
+    "glynt.text": "Für Pflege und Styling arbeiten wir mit Produkten von",
+    "glynt.sub": "Professionelle Haarpflege, die wir dir auch für zu Hause empfehlen.",
+    "glynt.imgAlt": "Pflegeprodukte von GLYNT im Regal des Salons",
 
     "preise.title": "Preise",
     "preise.note": "Alle Preise in Euro, Richtwerte inklusive Beratung",
@@ -129,7 +131,7 @@ export const ui = {
     "service.haus": "Hausbesuch",
 
     "kontakt.title": "Kontakt / Öffnungszeiten",
-    "kontakt.imgAlt": "Eingang des Salons Kopfsache mit Parkplätzen",
+    "kontakt.imgAlt": "Das Team von Kopfsache: Bianca, Kimberly und Lara im Salon",
     "kontakt.adresseTitle": "Adresse",
     "kontakt.land": "Belgien",
     "kontakt.parken": "2 Parkplätze direkt vor dem Salon",
@@ -164,7 +166,7 @@ export const ui = {
 
     "hero.title": "Salon de coiffure Kopfsache",
     "hero.text": "Femmes · Hommes · Enfants à Walhorn. Uniquement sur rendez-vous.",
-    "hero.imgAlt": "Kimberly devant le salon Kopfsache à Walhorn",
+    "hero.imgAlt": "Vue du salon Kopfsache à Walhorn avec miroirs ronds et bac à shampoing",
 
     "ueber.title": "À propos",
     "ueber.p1":
@@ -188,9 +190,9 @@ export const ui = {
 
     "leistungen.title": "Prestations",
     "leistungen.schnitt": "Coupe & coiffage",
-    "leistungen.schnittAlt": "Carré couleur cuivre",
+    "leistungen.schnittAlt": "Coupe aux ciseaux et au peigne",
     "leistungen.farbe": "Couleur & mèches",
-    "leistungen.farbeAlt": "Mèches blondes, brushing souple",
+    "leistungen.farbeAlt": "Conseil couleur avec mèche témoin",
     "leistungen.more": "Voir les tarifs",
     "leistungen.herren": "Hommes",
     "leistungen.herrenText": "Classique ou moderne, avec barbe sur demande.",
@@ -200,7 +202,9 @@ export const ui = {
     "leistungen.anlassText": "Chignons et coiffure de mariée pour votre grand jour.",
     "leistungen.haus": "À domicile",
     "leistungen.hausText": "Si vous ne pouvez pas venir au salon, nous venons chez vous.",
-    "glynt.text": "Pour la couleur et les soins, nous travaillons avec les produits",
+    "glynt.text": "Pour les soins et le coiffage, nous travaillons avec les produits",
+    "glynt.sub": "Des soins professionnels que nous vous recommandons aussi pour la maison.",
+    "glynt.imgAlt": "Produits de soin GLYNT sur l'étagère du salon",
 
     "preise.title": "Tarifs",
     "preise.note": "Tous les prix en euros, à titre indicatif, conseil inclus",
@@ -268,7 +272,7 @@ export const ui = {
     "service.haus": "À domicile",
 
     "kontakt.title": "Contact / Horaires",
-    "kontakt.imgAlt": "Entrée du salon Kopfsache avec places de parking",
+    "kontakt.imgAlt": "L'équipe de Kopfsache : Bianca, Kimberly et Lara au salon",
     "kontakt.adresseTitle": "Adresse",
     "kontakt.land": "Belgique",
     "kontakt.parken": "2 places de parking devant le salon",

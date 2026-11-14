@@ -3,15 +3,18 @@ import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
-import salonAussen from "../assets/images/salon-aussen.jpg";
-import portraitSalon from "../assets/images/portrait-salon.jpg";
-import salonEingang from "../assets/images/salon-eingang.jpg";
-import bianca from "../assets/images/bianca.jpg";
-import lara from "../assets/images/lara.jpg";
+import salonInnen from "../assets/images/salon-innen.jpg";
+import kimberlySalon from "../assets/images/kimberly-salon.jpg";
+import teamKimberly from "../assets/images/team-kimberly.jpg";
+import teamBianca from "../assets/images/team-bianca.jpg";
+import teamLara from "../assets/images/team-lara.jpg";
+import teamGruppe from "../assets/images/team-gruppe.jpg";
+import leistungSchnitt from "../assets/images/leistung-schnitt.jpg";
+import leistungFarbe from "../assets/images/leistung-farbe.jpg";
+import glyntRegal from "../assets/images/glynt-regal.jpg";
 import balayageVorher from "../assets/images/balayage-vorher.jpg";
 import balayageNachher from "../assets/images/balayage-nachher.jpg";
 import bobVorher from "../assets/images/bob-vorher.jpg";
-import bobNachher from "../assets/images/bob-nachher.jpg";
 import bobNachher2 from "../assets/images/bob-nachher2.jpg";
 import { useTranslations, type Lang } from "../i18n/translations";
 
@@ -35,9 +38,9 @@ const timeline = [
 ];
 
 const team = [
-  { name: "Kimberly", role: t("team.kimberly.role"), img: salonAussen, position: "32% 12%" },
-  { name: "Bianca", role: t("team.bianca.role"), img: bianca, position: "50% 8%" },
-  { name: "Lara", role: t("team.lara.role"), img: lara, position: "50% 25%" },
+  { name: "Kimberly", role: t("team.kimberly.role"), img: teamKimberly, position: "50% 20%" },
+  { name: "Bianca", role: t("team.bianca.role"), img: teamBianca, position: "50% 20%" },
+  { name: "Lara", role: t("team.lara.role"), img: teamLara, position: "50% 20%" },
 ];
 
 const extras = [
@@ -148,10 +151,10 @@ const bookingVars = {
       <!-- Bild oben -->
       <section class="hero">
         <Image
-          src={salonAussen}
+          src={salonInnen}
           alt={t("hero.imgAlt")}
           class="hero-img"
-          widths={[640, 960, 1139]}
+          widths={[640, 1024, 1600, 2560]}
           sizes="100vw"
           loading="eager"
           fetchpriority="high"
@@ -175,10 +178,10 @@ const bookingVars = {
         </div>
         <div class="ueber-split">
           <Image
-            src={portraitSalon}
+            src={kimberlySalon}
             alt={t("ueber.imgAlt")}
             class="ueber-img"
-            widths={[480, 800]}
+            widths={[640, 1024, 1600]}
             sizes="(max-width: 860px) 100vw, 50vw"
             loading="lazy"
           />
@@ -245,12 +248,12 @@ const bookingVars = {
           </div>
           <div class="service-grid">
             <a class="service-card" href="#preise">
-              <Image src={bobNachher} alt={t("leistungen.schnittAlt")} class="service-img" widths={[480, 900]} sizes="(max-width: 700px) 100vw, 50vw" loading="lazy" />
+              <Image src={leistungSchnitt} alt={t("leistungen.schnittAlt")} class="service-img" widths={[640, 1100]} sizes="(max-width: 700px) 100vw, 50vw" loading="lazy" />
               <h3>{t("leistungen.schnitt")}</h3>
               <span class="more">{t("leistungen.more")}</span>
             </a>
             <a class="service-card" href="#preise">
-              <Image src={balayageNachher} alt={t("leistungen.farbeAlt")} class="service-img" widths={[480, 900]} sizes="(max-width: 700px) 100vw, 50vw" loading="lazy" />
+              <Image src={leistungFarbe} alt={t("leistungen.farbeAlt")} class="service-img" widths={[640, 1100]} sizes="(max-width: 700px) 100vw, 50vw" loading="lazy" />
               <h3>{t("leistungen.farbe")}</h3>
               <span class="more">{t("leistungen.more")}</span>
             </a>
@@ -265,9 +268,14 @@ const bookingVars = {
               ))
             }
           </ul>
-          <p class="glynt">
-            {t("glynt.text")} <strong>GLYNT</strong>.
-          </p>
+          <div class="glynt">
+            <Image src={glyntRegal} alt={t("glynt.imgAlt")} class="glynt-img" widths={[640, 1100]} sizes="(max-width: 760px) 100vw, 560px" loading="lazy" />
+            <div class="glynt-text">
+              <h3>GLYNT</h3>
+              <p>{t("glynt.text")} <strong>GLYNT</strong>.</p>
+              <p class="small">{t("glynt.sub")}</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -430,7 +438,7 @@ const bookingVars = {
               <p class="small">{t("kontakt.note")}</p>
             </div>
           </div>
-          <Image src={salonEingang} alt={t("kontakt.imgAlt")} class="kontakt-img" widths={[480, 923]} sizes="(max-width: 760px) 100vw, 720px" loading="lazy" />
+          <Image src={teamGruppe} alt={t("kontakt.imgAlt")} class="kontakt-img" widths={[640, 1100, 1600]} sizes="(max-width: 960px) 100vw, 920px" loading="lazy" />
         </div>
       </section>
     </main>
@@ -454,7 +462,7 @@ const bookingVars = {
     width: 100%;
     height: clamp(420px, 46vw, 600px);
     object-fit: cover;
-    object-position: 30% 22%;
+    object-position: 50% 60%;
   }
 
   .hero-card {
@@ -535,7 +543,7 @@ const bookingVars = {
     height: 100%;
     min-height: 460px;
     object-fit: cover;
-    object-position: 50% 35%;
+    object-position: 65% 30%;
   }
 
   .ueber-text {
@@ -676,7 +684,7 @@ const bookingVars = {
     height: auto;
     aspect-ratio: 4 / 3;
     object-fit: cover;
-    object-position: 50% 35%;
+    object-position: 50% 50%;
     margin-bottom: 24px;
   }
 
@@ -721,15 +729,42 @@ const bookingVars = {
   }
 
   .glynt {
-    margin: clamp(48px, 6vw, 64px) 0 0;
-    text-align: center;
-    font-size: 15px;
-    color: var(--muted);
+    margin: clamp(56px, 7vw, 80px) 0 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+    gap: clamp(32px, 5vw, 64px);
   }
 
-  .glynt strong {
-    color: var(--ink);
-    letter-spacing: 0.14em;
+  .glynt-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  .glynt-text {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .glynt-text h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--gold-text);
+  }
+
+  .glynt-text p {
+    margin: 0;
+  }
+
+  @media (max-width: 760px) {
+    .glynt {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 
   @media (max-width: 860px) {
@@ -1058,11 +1093,11 @@ const bookingVars = {
   .kontakt-img {
     width: 100%;
     height: auto;
-    max-width: 720px;
+    max-width: 920px;
     margin: clamp(48px, 6vw, 64px) auto 0;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 3 / 2;
     object-fit: cover;
-    object-position: 50% 55%;
+    object-position: 50% 30%;
   }
 
   @media (max-width: 860px) {
