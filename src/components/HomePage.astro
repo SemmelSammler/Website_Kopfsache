@@ -34,6 +34,8 @@ const PHONE_DISPLAY = "087 76 67 35";
 const PHONE_LINK = "tel:+3287766735";
 const INSTAGRAM = "https://www.instagram.com/dasistalles.kopfsache/";
 const FACEBOOK = "https://www.facebook.com/Kopfsacheeupen/";
+const WHATSAPP_DISPLAY = "0471 88 63 29";
+const WHATSAPP = `https://wa.me/32471886329?text=${encodeURIComponent(t("whatsapp.text"))}`;
 
 const slides = [
   { src: salonInnen, alt: t("hero.imgAlt"), pos: "50% 60%" },
@@ -190,6 +192,7 @@ const bookingVars = {
           <div class="hero-actions">
             <a class="btn btn-solid" href="#termin">{t("booking.title")}</a>
             <a class="btn btn-light" href={PHONE_LINK}>{PHONE_DISPLAY}</a>
+            <a class="btn btn-light btn-icon" href={WHATSAPP} target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.4-4.1A8.6 8.6 0 1 1 8.3 19.3z"></path><path d="M9 8.6c.2-.5.6-.6.9-.6h.5c.2 0 .4.1.5.4l.6 1.5c.1.2 0 .5-.1.6l-.5.6c.6 1.2 1.5 2.1 2.7 2.7l.6-.5c.2-.2.4-.2.6-.1l1.5.6c.3.1.4.3.4.5v.5c0 .3-.1.7-.6.9-.6.3-1.7.4-3.5-.7-1.6-1-2.7-2.4-3.3-3.6-.5-1.1-.5-2.2-.2-2.7z" fill="currentColor" stroke="none"></path></svg>WhatsApp</a>
           </div>
           <ul class="hero-facts">
             {heroFacts.map((f) => <li>{f}</li>)}
@@ -409,7 +412,7 @@ const bookingVars = {
           <div class="section-head">
             <h2>{t("booking.title")}</h2>
             <span class="divider" aria-hidden="true"></span>
-            <p>{t("booking.intro")} <a href={PHONE_LINK}><strong>{PHONE_DISPLAY}</strong></a> {t("booking.introSuffix")}</p>
+            <p>{t("booking.intro")} <a href={PHONE_LINK}><strong>{PHONE_DISPLAY}</strong></a>, {t("booking.introWhatsapp")} <a href={WHATSAPP} target="_blank" rel="noopener"><strong>WhatsApp</strong></a> {t("booking.introSuffix")}</p>
           </div>
           <form class="booking-form" id="booking-form">
             <div class="field field-half">
@@ -474,12 +477,14 @@ const bookingVars = {
               <h3>{t("kontakt.telefonTitle")}</h3>
               <p>
                 <a href={PHONE_LINK}>{PHONE_DISPLAY}</a><br />
+                <a href={WHATSAPP} target="_blank" rel="noopener">WhatsApp: {WHATSAPP_DISPLAY}</a><br />
                 <a href="mailto:kopfsache.info@gmail.com">kopfsache.info@gmail.com</a>
               </p>
               <p class="small">{t("kontakt.folgen")}</p>
               <div class="kontakt-social">
                 <a href={INSTAGRAM} target="_blank" rel="noopener" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></a>
                 <a href={FACEBOOK} target="_blank" rel="noopener" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8z"></path></svg></a>
+                <a href={WHATSAPP} target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.4-4.1A8.6 8.6 0 1 1 8.3 19.3z"></path><path d="M9 8.6c.2-.5.6-.6.9-.6h.5c.2 0 .4.1.5.4l.6 1.5c.1.2 0 .5-.1.6l-.5.6c.6 1.2 1.5 2.1 2.7 2.7l.6-.5c.2-.2.4-.2.6-.1l1.5.6c.3.1.4.3.4.5v.5c0 .3-.1.7-.6.9-.6.3-1.7.4-3.5-.7-1.6-1-2.7-2.4-3.3-3.6-.5-1.1-.5-2.2-.2-2.7z" fill="currentColor" stroke="none"></path></svg></a>
               </div>
             </div>
             <div class="kontakt-col">
@@ -574,6 +579,10 @@ const bookingVars = {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
+  }
+
+  .btn-icon {
+    gap: 8px;
   }
 
   .btn-light {
