@@ -6,14 +6,15 @@ Offene Punkte, die nicht sofort umgesetzt werden.
 - [ ] Vorschau mit den neuen Bildern zeigen, Feedback sammeln
 - [ ] Kimberly in der Google Search Console als Inhaberin hinzufügen (Einstellungen → Nutzer und Berechtigungen)
 - [ ] Google-Unternehmensprofil übernehmen (mit Kimberlys eigenem Konto) und Website eintragen
-- [ ] Website-Link in Instagram-Bio und Facebook-Info eintragen, Facebook-Link an Jason
-- [ ] Finale Preisliste festlegen (danach Preise wieder einblenden: SHOW_PRICES in HomePage.astro)
-- [ ] Montag geöffnet oder geschlossen?
-- [ ] Unternehmensnummer (BCE/KBO) fürs Impressum
-- [ ] Online-Terminbuchung: gewünscht oder nicht?
-- [ ] Bildrechte Fotoshooting: Wer hat fotografiert? Muss der Name auf der Website stehen (z. B. „Fotos: …“ in der Fußzeile)?
-- [ ] Bestätigen: Blonde mit Brille = Kimberly, graue Kurzhaare = Bianca
-- [ ] Startseite: Variante A, B oder C wählen; Bereich „Unser Salon“ ja/nein
+- [ ] Website-Link in Instagram-Bio und Facebook-Info eintragen (später)
+- [ ] Facebook-Link an Jason schicken → dann Facebook-Symbol auf der Website
+- [ ] (Preisliste kommt per Nachricht) Finale Preisliste festlegen (danach Preise wieder einblenden: SHOW_PRICES in HomePage.astro)
+- [ ] Montag geöffnet oder geschlossen? → neue Öffnungszeiten kommen per Nachricht
+- [ ] Unternehmensnummer fürs Impressum: genannt „BE 07415612238“ (11 Ziffern) → belgische Nummern haben 10 Ziffern, bitte prüfen
+- [ ] Online-Terminbuchung: GEWÜNSCHT, wird ganz am Ende umgesetzt
+- [ ] (wartet auf Antwort Fotograf) Bildrechte Fotoshooting: Wer hat fotografiert? Muss der Name auf der Website stehen (z. B. „Fotos: …“ in der Fußzeile)?
+- [x] Bestätigt: Blonde mit Brille = Kimberly, graue Kurzhaare = Bianca
+- [x] Startseite: Variante B (Bildwechsel) + „Unser Salon“ live (14.11.)
 
 ## Rechtliches / Einverständnis
 - [x] Zustimmung von Bianca und Lara (bei Lara auch der Eltern) zur Veröffentlichung ihrer Fotos liegt vor.
