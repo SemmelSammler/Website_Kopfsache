@@ -4,8 +4,10 @@ import type { APIRoute } from "astro";
 const pages = [
   { path: "/", priority: "1.0", alternates: { de: "/", fr: "/fr/" } },
   { path: "/fr/", priority: "0.9", alternates: { de: "/", fr: "/fr/" } },
-  { path: "/impressum/", priority: "0.2" },
-  { path: "/datenschutz/", priority: "0.2" },
+  { path: "/impressum/", priority: "0.2", alternates: { de: "/impressum/", fr: "/fr/impressum/" } },
+  { path: "/fr/impressum/", priority: "0.2", alternates: { de: "/impressum/", fr: "/fr/impressum/" } },
+  { path: "/datenschutz/", priority: "0.2", alternates: { de: "/datenschutz/", fr: "/fr/datenschutz/" } },
+  { path: "/fr/datenschutz/", priority: "0.2", alternates: { de: "/datenschutz/", fr: "/fr/datenschutz/" } },
 ];
 
 export const GET: APIRoute = ({ site }) => {

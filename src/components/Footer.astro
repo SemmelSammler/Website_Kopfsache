@@ -1,5 +1,5 @@
 ---
-import { useTranslations, type Lang } from "../i18n/translations";
+import { useTranslations, altPath, type Lang } from "../i18n/translations";
 
 interface Props {
   lang: Lang;
@@ -27,8 +27,8 @@ const t = useTranslations(lang);
     <p class="legal">
       <span>© Salon Kopfsache · Walhorn</span>
       <span class="legal-links">
-        <a href="/impressum">{t("footer.impressum")}</a>
-        <a href="/datenschutz">{t("footer.datenschutz")}</a>
+        <a href={altPath(lang, "/impressum")}>{t("footer.impressum")}</a>
+        <a href={altPath(lang, "/datenschutz")}>{t("footer.datenschutz")}</a>
       </span>
     </p>
   </div>

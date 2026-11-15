@@ -1,5 +1,10 @@
 ---
 import type { Lang } from "../i18n/translations";
+// Schriften liegen auf der eigenen Website (keine Verbindung zu Google Fonts)
+import "@fontsource/oxygen/latin-300.css";
+import "@fontsource/oxygen/latin-400.css";
+import "@fontsource/oxygen/latin-700.css";
+import "@fontsource/josefin-sans/latin-300.css";
 
 interface Props {
   title: string;
@@ -43,13 +48,6 @@ const ogLocale = lang === "fr" ? "fr_BE" : "de_BE";
     <meta name="twitter:card" content="summary_large_image" />
 
     {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&family=Oxygen:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <slot />

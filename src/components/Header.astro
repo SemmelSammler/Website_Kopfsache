@@ -6,9 +6,11 @@ interface Props {
   lang: Lang;
   /** Auf Unterseiten zeigen die Anker auf die Startseite */
   home?: boolean;
+  /** Seite, auf die der DE/FR-Schalter zeigt */
+  page?: "/" | "/impressum" | "/datenschutz";
 }
 
-const { lang, home = true } = Astro.props;
+const { lang, home = true, page = "/" } = Astro.props;
 const t = useTranslations(lang);
 const base = home ? "" : altPath(lang, "/");
 
@@ -53,9 +55,9 @@ const links = [
       </ul>
       <div class="nav-actions">
         <span class="lang-switch" role="group" aria-label="Sprache / Langue">
-          <a class:list={["lang-link", { active: lang === "de" }]} href={altPath("de", "/")} aria-current={lang === "de" ? "page" : undefined}>DE</a>
+          <a class:list={["lang-link", { active: lang === "de" }]} href={altPath("de", page)} aria-current={lang === "de" ? "page" : undefined}>DE</a>
           <span class="lang-sep" aria-hidden="true">|</span>
-          <a class:list={["lang-link", { active: lang === "fr" }]} href={altPath("fr", "/")} aria-current={lang === "fr" ? "page" : undefined}>FR</a>
+          <a class:list={["lang-link", { active: lang === "fr" }]} href={altPath("fr", page)} aria-current={lang === "fr" ? "page" : undefined}>FR</a>
         </span>
         <a class="btn btn-outline" href={`${base}#termin`}>{t("nav.termin")}</a>
       </div>

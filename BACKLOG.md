@@ -18,7 +18,8 @@ Offene Punkte, die nicht sofort umgesetzt werden.
 
 ## Rechtliches / Einverständnis
 - [x] Zustimmung von Bianca und Lara (bei Lara auch der Eltern) zur Veröffentlichung ihrer Fotos liegt vor.
-- [ ] Impressum und Datenschutz vervollständigen (voller Name Kimberly Bonni, Unternehmensnummer BCE/KBO) und ins Französische übersetzen.
+- [x] Impressum + Datenschutz neu (DE/FR), Schriften selbst gehostet (15.11.)
+- [ ] Kimberly: Datenschutzerklärung einmal lesen und bestätigen
 
 ## Google
 - [x] Website in der Google Search Console angemeldet, Sitemap eingereicht (14.11.)
