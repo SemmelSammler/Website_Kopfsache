@@ -7,10 +7,10 @@ Offene Punkte, die nicht sofort umgesetzt werden.
 - [ ] Kimberly in der Google Search Console als Inhaberin hinzufügen (Einstellungen → Nutzer und Berechtigungen)
 - [ ] Google-Unternehmensprofil übernehmen (mit Kimberlys eigenem Konto) und Website eintragen
 - [ ] Website-Link in Instagram-Bio und Facebook-Info eintragen (später)
-- [ ] Facebook-Link an Jason schicken → dann Facebook-Symbol auf der Website
+- [x] Facebook-Link eingebaut (Fußzeile + Kontakt)
 - [ ] (Preisliste kommt per Nachricht) Finale Preisliste festlegen (danach Preise wieder einblenden: SHOW_PRICES in HomePage.astro)
 - [ ] Montag geöffnet oder geschlossen? → neue Öffnungszeiten kommen per Nachricht
-- [ ] Unternehmensnummer fürs Impressum: genannt „BE 07415612238“ (11 Ziffern) → belgische Nummern haben 10 Ziffern, bitte prüfen
+- [x] Unternehmensnummer BE 0741.561.238 im Impressum (15.11.)
 - [ ] Online-Terminbuchung: GEWÜNSCHT, wird ganz am Ende umgesetzt
 - [ ] (wartet auf Antwort Fotograf) Bildrechte Fotoshooting: Wer hat fotografiert? Muss der Name auf der Website stehen (z. B. „Fotos: …“ in der Fußzeile)?
 - [x] Bestätigt: Blonde mit Brille = Kimberly, graue Kurzhaare = Bianca
