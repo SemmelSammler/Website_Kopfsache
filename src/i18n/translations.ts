@@ -11,7 +11,7 @@ export const ui = {
   de: {
     "meta.title": "Friseur Kopfsache · Damen, Herren & Kinder in Walhorn",
     "meta.description":
-      "Friseursalon Kopfsache in Walhorn: Friseurmeisterin Kimberly und Team für Damen, Herren und Kinder. Nur auf Termin, Hausbesuche nach Vereinbarung.",
+      "Friseursalon in Walhorn für Damen, Herren und Kinder. Meisterbetrieb mit Kimberly und Team, Pflege von GLYNT, Hausbesuche. Termin per Telefon oder WhatsApp.",
 
     "nav.ueber": "Über uns",
     "nav.team": "Team",

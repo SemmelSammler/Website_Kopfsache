@@ -100,12 +100,22 @@ const beforeAfter = [
   },
 ];
 
+// Damit Google „Kopfsache“ statt der Adresse als Seitennamen zeigt
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Kopfsache",
+  alternateName: ["Kopfsache Walhorn", "Friseur Kopfsache Walhorn"],
+  url: "https://kopfsache-walhorn.be/",
+};
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "HairSalon",
   name: "Kopfsache",
   url: "https://kopfsache-walhorn.be/",
   image: "https://kopfsache-walhorn.be/og-image.jpg",
+  logo: "https://kopfsache-walhorn.be/favicon-512.png",
   priceRange: "€€",
   telephone: "+32 87 76 67 35",
   email: "kopfsache.info@gmail.com",
@@ -160,6 +170,7 @@ const bookingVars = {
 
 <BaseLayout title={t("meta.title")} description={t("meta.description")} lang={lang} alternates={alternates}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
 
   <div id="top">
     <Header lang={lang} />
