@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
@@ -17,6 +17,8 @@ import farbberatung from "../assets/images/farbberatung.jpg";
 import salonSpiegel from "../assets/images/salon-spiegel.jpg";
 import salonWaschplatz from "../assets/images/salon-waschplatz.jpg";
 import salonEmpfang from "../assets/images/salon-empfang.jpg";
+import hochEmpfang from "../assets/images/hoch-empfang.jpg";
+import hochSpiegel from "../assets/images/hoch-spiegel.jpg";
 import balayageVorher from "../assets/images/balayage-vorher.jpg";
 import balayageNachher from "../assets/images/balayage-nachher.jpg";
 import bobVorher from "../assets/images/bob-vorher.jpg";
@@ -37,12 +39,21 @@ const FACEBOOK = "https://www.facebook.com/Kopfsacheeupen/";
 const WHATSAPP_DISPLAY = "0471 88 63 29";
 const WHATSAPP = `https://wa.me/32471886329?text=${encodeURIComponent(t("whatsapp.text"))}`;
 
-const slides = [
-  { src: salonLampen, alt: t("hero.slide3Alt"), pos: "56% 45%" },
-  { src: salonInnen, alt: t("hero.imgAlt"), pos: "50% 60%" },
-  { src: kimberlySalon, alt: t("hero.slide2Alt"), pos: "68% 30%" },
-  { src: farbberatung, alt: t("hero.slide4Alt"), pos: "50% 45%" },
+// Computer: Querformat-Bilder · Handy (bis 760 px): eigene Hochformat-Bilder
+const slideDefs = [
+  { desk: salonLampen, deskPos: "56% 45%", mob: teamKimberly, mobPos: "50% 22%" },
+  { desk: salonInnen, deskPos: "50% 60%", mob: hochEmpfang, mobPos: "50% 15%" },
+  { desk: kimberlySalon, deskPos: "68% 30%", mob: salonWaschplatz, mobPos: "50% 35%" },
+  { desk: farbberatung, deskPos: "50% 45%", mob: hochSpiegel, mobPos: "50% 35%" },
 ];
+
+const slides = await Promise.all(
+  slideDefs.map(async (d) => {
+    const desk = await getImage({ src: d.desk, widths: [1024, 1600, 2560], format: "webp" });
+    const mob = await getImage({ src: d.mob, widths: [480, 800, 1200], format: "webp" });
+    return { ...d, desk, mob };
+  })
+);
 
 const heroFacts = [t("hero.fact1"), t("hero.fact2"), t("hero.fact3"), t("hero.fact4")];
 
@@ -181,18 +192,22 @@ const bookingVars = {
         <div class="hero-slides">
           {
             slides.map((sl, i) => (
-              <Image
-                src={sl.src}
-                alt={i === 0 ? sl.alt : ""}
-                aria-hidden={i === 0 ? undefined : "true"}
-                class:list={["hero-slide", { active: i === 0 }]}
-                widths={[640, 1024, 1600, 2560]}
-                sizes="100vw"
-                loading={i === 0 ? "eager" : "lazy"}
-                fetchpriority={i === 0 ? "high" : "auto"}
-                style={`object-position:${sl.pos}`}
-                data-slide={i}
-              />
+              <picture>
+                <source media="(max-width: 760px)" srcset={sl.mob.srcSet.attribute} sizes="100vw" type="image/webp" />
+                <img
+                  src={sl.desk.src}
+                  srcset={sl.desk.srcSet.attribute}
+                  sizes="100vw"
+                  alt={i === 0 ? t("hero.imgAlt") : ""}
+                  aria-hidden={i === 0 ? undefined : "true"}
+                  class:list={["hero-slide", { active: i === 0 }]}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  fetchpriority={i === 0 ? "high" : "auto"}
+                  decoding="async"
+                  style={`--pos:${sl.deskPos};--pos-m:${sl.mobPos}`}
+                  data-slide={i}
+                />
+              </picture>
             ))
           }
         </div>
@@ -544,8 +559,15 @@ const bookingVars = {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: var(--pos);
     opacity: 0;
     transition: opacity 1200ms ease;
+  }
+
+  @media (max-width: 760px) {
+    .hero-slide {
+      object-position: var(--pos-m);
+    }
   }
 
   .hero-slide.active {

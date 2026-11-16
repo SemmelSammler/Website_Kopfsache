@@ -40,7 +40,7 @@ export const ui = {
     "salon.img2": "Zwei Arbeitsplätze mit runden Spiegeln",
     "salon.img3": "Waschplatz mit GLYNT-Produkten",
     "salon.img4": "Empfang mit Waschplatz",
-    "hero.imgAlt": "Blick in den Salon Kopfsache in Walhorn mit runden Spiegeln und Waschplatz",
+    "hero.imgAlt": "Blick in den Salon Kopfsache in Walhorn",
 
     "ueber.title": "Über uns",
     "ueber.p1":
@@ -199,7 +199,7 @@ export const ui = {
     "salon.img2": "Deux postes avec miroirs ronds",
     "salon.img3": "Bac à shampoing avec produits GLYNT",
     "salon.img4": "Accueil et bac à shampoing",
-    "hero.imgAlt": "Vue du salon Kopfsache à Walhorn avec miroirs ronds et bac à shampoing",
+    "hero.imgAlt": "Vue du salon Kopfsache à Walhorn",
 
     "ueber.title": "À propos",
     "ueber.p1":
