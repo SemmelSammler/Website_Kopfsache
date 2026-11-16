@@ -43,8 +43,8 @@ const WHATSAPP = `https://wa.me/32471886329?text=${encodeURIComponent(t("whatsap
 const slideDefs = [
   { desk: salonLampen, deskPos: "56% 45%", mob: hochEmpfang, mobPos: "50% 15%" },
   { desk: salonInnen, deskPos: "50% 60%", mob: teamKimberly, mobPos: "50% 22%" },
-  { desk: kimberlySalon, deskPos: "68% 30%", mob: salonWaschplatz, mobPos: "50% 35%" },
-  { desk: farbberatung, deskPos: "50% 45%", mob: hochSpiegel, mobPos: "50% 35%" },
+  { desk: kimberlySalon, deskPos: "68% 30%", mob: hochSpiegel, mobPos: "50% 35%" },
+  { desk: farbberatung, deskPos: "50% 45%", mob: salonLampen, mobPos: "56% 45%" },
 ];
 
 const slides = await Promise.all(
@@ -1394,6 +1394,29 @@ const bookingVars = {
   );
 
   document.addEventListener("visibilitychange", () => (document.hidden ? stopHero() : startHero()));
+
+  // Wischen auf dem Handy: links/rechts zum nächsten bzw. vorherigen Bild
+  let touchX = 0;
+  let touchY = 0;
+  hero?.addEventListener(
+    "touchstart",
+    (e) => {
+      touchX = e.touches[0].clientX;
+      touchY = e.touches[0].clientY;
+    },
+    { passive: true }
+  );
+  hero?.addEventListener(
+    "touchend",
+    (e) => {
+      const dx = e.changedTouches[0].clientX - touchX;
+      const dy = e.changedTouches[0].clientY - touchY;
+      if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+      showSlide(heroIndex + (dx < 0 ? 1 : -1));
+      startHero();
+    },
+    { passive: true }
+  );
 </script>
 
 <script define:vars={{ bookingVars }}>
